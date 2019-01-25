@@ -1,0 +1,24 @@
+v20190119
+--- 2019-01-19 ---
+Firmware updates and Pi 3B+ compatibility
+Fixed cb_config update_bridge
+--- 2018-01-17 ---
+Added ultrasonic lock
+Changed UBUBOT config
+--- 2018-01-13 ---
+Changes to python libraries
+Added arduino bus communication
+--- 2017-12-22 ---
+Added ububot input examples cb_ub_keyboard cb_ub_steamcontroller
+Added Python Libraries
+Added client mode to cb_config
+--- 2017-12-20 ---
+Added cb_config
+Added Google Drive
+Added CBFi
+Removed NOOBS
+Added CV3
+Enabled SSH
+Enabled VNC
+Enabled PiCam
+------------------

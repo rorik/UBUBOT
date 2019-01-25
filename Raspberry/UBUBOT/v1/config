@@ -1,0 +1,51 @@
+[Main]
+
+LeftToRightRatio=1
+FullTurnRatio=0.8
+CamEnabled=true
+i2cBus=1
+MotorDriverFrequency=150
+Handshake=false
+
+[Sensors]
+
+# The Ultra Sonic module has 3 possible states:
+#	0: Sensors and polling enabled
+#	1: Polling disabled
+#	2: Sensors and polling disabled
+USMode=2
+
+# Send request to enable interrupt pin based on US
+USInterruptPin=false
+
+# The interrupt method has 5 possible states:
+#	0: Disabled
+#	1: Request distance in cm, 7 bits per sensor, 126cm max
+#	2: Request distance in cm, 8 bits per sensor, 254cm max
+#	3: Request threshold check, 1 bit per sensor, 0-29cm threshold
+#	4: Use interrupt pin only, make sure RemoteInterruptPin is enabled
+USPollingMethod=0
+
+# Enable motor lock based on ultra sonic distance
+USLock=false
+
+# Distance in cm at which the lock will be activated
+# If method 3 is used, make sure the selected distance is
+# within the given range.
+USDistanceInterrupt=14
+
+# Amount of i2c bursts per second, 100hz max
+USPollingRate=8
+# Time in ms between each i2c request
+USDelay=10
+
+[Pins]
+
+InterruptPin=7
+MotorDriverLeftPWM=5
+MotorDriverLeftBackwards=4
+MotorDriverLeftForwards=3
+MotorDriverRightBackwards=1
+MotorDriverRightForwards=2
+MotorDriverRightPWM=0
+FullMotorControlChannel=13

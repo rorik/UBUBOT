@@ -1,0 +1,16 @@
+hostname
+clientid
+persistent
+option rapid_commit, domain_name_servers, domain_name, domain_search, host_name, classless_static_routes, ntp_servers, interface_mtu
+require dhcp_server_identifier
+slaac private
+
+profile static_wlan0
+static ip_address=10.11.12.24/24
+static routers=10.11.12.13
+
+interface wlan0
+fallback static_wlan0
+denyinterfaces eth0
+denyinterfaces wlan0
+denyinterfaces br0

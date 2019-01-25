@@ -1,0 +1,52 @@
+.pins {
+    width: 100%;
+    font-weight: 500;
+    font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+}
+.pinGroup {
+    margin-left: 18%;
+    width: 15%;
+    float: left;
+}
+.pin {
+    white-space: nowrap;
+}
+.pinValue {
+    width: auto;
+    margin-left: 10%;
+    margin-right: auto;
+    float: left;
+}
+.pinValueRotated {
+    width: auto;
+    margin-right: 10%;
+    margin-left: auto;
+}
+.pinDescription {
+    width: 60%;
+    margin-right: 10%;
+    margin-left: auto;
+    text-align: right;
+}
+.pinDescriptionRotated {
+    width: 60%;
+    margin-left: 10%;
+    alignment: left;
+    float: left;
+    text-align: left;
+}
+.pin[type=voltage3] {
+    background-color: #F1A9A0;
+}
+.pin[type=voltage5] {
+    background-color: #E08283;
+}
+.pin[type=GPIO] {
+    background-color: #86E2D5;
+}
+.pin[type=ground] {
+    background-color: #BFBFBF;
+}
+.pin[type=i2c] {
+    background-color: #ECF0F1;
+}

@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GPIO</title>
+</head>
+<body>
+    {%- for item in item_list %}
+        {{ item }}{% if not loop.last %},{% endif %}
+    {%- endfor %}
+</body>
+</html>

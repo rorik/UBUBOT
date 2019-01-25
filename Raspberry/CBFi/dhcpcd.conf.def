@@ -1,0 +1,6 @@
+hostname
+clientid
+persistent
+option rapid_commit, domain_name_servers, domain_name, domain_search, host_name, classless_static_routes, ntp_servers, interface_mtu
+require dhcp_server_identifier
+slaac private
