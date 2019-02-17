@@ -422,10 +422,10 @@ bool reset_motor(uint8_t slot) {
 }
 
 float normalize_speed(float speed) {
-  if(speed > 200) {
-    return 200;
-  } else if(speed < -200) {
-    return -200;
+  if(speed > MAX_SPEED) {
+    return MAX_SPEED;
+  } else if(speed < -MAX_SPEED) {
+    return -MAX_SPEED;
   }
   return speed;
 }
