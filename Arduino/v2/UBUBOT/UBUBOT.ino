@@ -12,7 +12,7 @@
 #define MAX_SPEED    200
 
 /* Serial Config */
-#define SERIAL_RATE    250000
+#define SERIAL_RATE    230400
 #define START_CHAR     '{'
 #define END_CHAR       '}'
 #define CHECKSUM_CHAR  '$'
@@ -205,14 +205,14 @@ Execution process_command(char *command) {
         }
       }
     } else if (strcmp(sections[0], COMMAND_POS) == 0) {
-      if (section_count != 3 || sections[1][1] != '\0') {
+      if (section_count != 2 || sections[1][1] != '\0') {
           ERROR("!> 43 - Invalid POS parameters");
           return NULL_EXECUTION;
       } else {
         return { .function = POS, .motor = sections[1][0] };
       }
     } else if (strcmp(sections[0], COMMAND_SPD) == 0) {
-      if (section_count != 3 || sections[1][1] != '\0') {
+      if (section_count != 2 || sections[1][1] != '\0') {
           ERROR("!> 44 - Invalid SPD parameters");
           return NULL_EXECUTION;
       } else {
@@ -303,18 +303,22 @@ bool execute_movement(Execution ex, bool (*function)(uint8_t, float, float)) {
 
 void print_info(char motor, float (*function)(uint8_t)) {
   if (motor == BOTH_MOTORS) {
+    float info_L = (*function)(LEFT_SLOT);
+    float info_R = (*function)(RIGHT_SLOT);
     Serial.print(">> L = ");
-    Serial.print((*function)(LEFT_SLOT));
+    Serial.print(info_L);
     Serial.print(" , R = ");
-    Serial.print((*function)(RIGHT_SLOT));
+    Serial.print(info_R);
     Serial.println(" <<");
   } else if (motor == LEFT_MOTOR) {
+    float info = (*function)(LEFT_SLOT);
     Serial.print(">> L = ");
-    Serial.print((*function)(LEFT_SLOT));
+    Serial.print(info);
     Serial.println(" <<");
   } else {
+    float info = (*function)(RIGHT_SLOT);
     Serial.print(">> R = ");
-    Serial.print((*function)(RIGHT_SLOT));
+    Serial.print(info);
     Serial.println(" <<");
   }
 }
