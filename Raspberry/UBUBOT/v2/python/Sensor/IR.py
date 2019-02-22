@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import RPi.GPIO as GPIO
+from Comms.GPIO import GPIOObject
 from enum import Enum
 
 
@@ -8,15 +9,11 @@ class SensorEvent(Enum):
     DETECT_END = GPIO.FALLING
 
 
-class IRSensor(object):
-    _initialized_GPIO = False
+class IRSensor(GPIOObject):
     _event = None
 
     def __init__(self, pin):
-        if not IRSensor._initialized_GPIO:
-            GPIO.setmode(GPIO.BOARD)
-            IRSensor._initialized_GPIO = True
-        self._pin = pin
+        GPIOObject.__init__(self, pin)
         GPIO.setup(self._pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
     def wait(self, event, timeout=2000):
