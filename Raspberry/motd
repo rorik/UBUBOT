@@ -39,31 +39,32 @@ else
 fi
 
 if ping -q -c 1 -W 1 8.8.8.8 >/dev/null 2>/dev/null; then
-  intstatus="  \e[92mOK\e[39m  "
+  intstatus="   \e[92mOK\e[39m   "
   if ping -q -c 1 -W 1 google.com >/dev/null; then
-    dnsstatus="  \e[92mOK\e[39m  "
+    dnsstatus="   \e[92mOK\e[39m   "
     eip=$(curl -s ipecho.net/plain)
   else
-    dnsstatus="\e[91mFAILED\e[39m"
+    dnsstatus=" \e[91mFAILED\e[39m "
     eip=""
   fi
 else
-  intstatus="\e[91mFAILED\e[39m"
-  dnsstatus="\e[91mFAILED\e[39m"
+  intstatus=" \e[91mFAILED\e[39m "
+  dnsstatus=" \e[91mFAILED\e[39m "
   eip=""
 fi
 
 /etc/cb/UBUBOT/arduino/handshake
-
-if [ $? -eq 0 ]; then
-  arduinostatus="  \e[92mOK\e[39m  "
+arduinoresponse=$?
+if [ $arduinoresponse -eq 0 ]; then
+  arduinostatus="   \e[92mOK\e[39m   "
+elif [ $arduinoresponse -eq 2 ]; then
+  arduinostatus="\e[93mOUTDATED\e[39m"
 else
-  arduinostatus="\e[91mFAILED\e[39m"
+  #arduinostatus=" \e[91mFAILED\e[39m "
+  arduinostatus=" \e[91m${arduinoresponse}\e[39m "
 fi
 
 pip=$(/sbin/ifconfig wlan0 | grep 'inet ' | awk '{print $2}')
-
-#sship=$(echo $SSH_CLIENT | awk '{print $1}')
 
 echo
 echo "\e[38;5;18m######\e[38;5;19m######\e[38;5;20m######\e[38;5;21m######\e[38;5;21m######\e[38;5;20m######\e[38;5;19m######\e[38;5;18m######\e[39m"
@@ -73,9 +74,9 @@ echo "\e[38;5;18m#\e[39m             \e[96mSSH\e[39m     -  $sshstatus          
 echo "\e[38;5;18m#\e[39m             \e[96mVNC\e[39m     -  $vncstatus              \e[38;5;18m#"
 echo "\e[38;5;18m#\e[39m             \e[96mCBFi\e[39m    -  $cbfistatus              \e[38;5;18m#"
 echo "\e[38;5;18m#\e[39m            \e[96mCBFiB\e[39m    -  $bridgestatus              \e[38;5;18m#"
-echo "\e[38;5;18m#\e[39m           \e[96mInternet\e[39m  -   $intstatus               \e[38;5;18m#"
-echo "\e[38;5;18m#\e[39m             \e[96mDNS\e[39m     -   $dnsstatus               \e[38;5;18m#"
-echo "\e[38;5;18m#\e[39m           \e[96mArduino\e[39m   -   $arduinostatus               \e[38;5;18m#"
+echo "\e[38;5;18m#\e[39m           \e[96mInternet\e[39m  -  $intstatus              \e[38;5;18m#"
+echo "\e[38;5;18m#\e[39m             \e[96mDNS\e[39m     -  $dnsstatus              \e[38;5;18m#"
+echo "\e[38;5;18m#\e[39m           \e[96mArduino\e[39m   -  $arduinostatus              \e[38;5;18m#"
 echo "\e[38;5;18m######\e[38;5;19m######\e[38;5;20m######\e[38;5;21m######\e[38;5;21m######\e[38;5;20m######\e[38;5;19m######\e[38;5;18m######\e[39m"
 echo "\e[38;5;18m#\e[39m    \e[48;5;17;95m@author Roderick D. - github.com/rorik\e[49;39m    \e[38;5;18m#"
 echo "\e[38;5;18m######\e[38;5;19m######\e[38;5;20m######\e[38;5;21m######\e[38;5;21m######\e[38;5;20m######\e[38;5;19m######\e[38;5;18m######\e[39m"
@@ -84,5 +85,4 @@ if [ ! -z $pip ]; then echo "Private IP: $pip"; fi
 if [ ! -z $eip ]; then echo "External IP: $eip"; fi
 if [ ! -z $bdip ]; then echo "Bridge DHCP IP: ${bdip}"; fi
 if [ ! -z $bsip ]; then echo "Bridge static IP: $bsip"; fi
-#if [ ! -z $sship ]; then echo "Connection IP: $sship"; fi
 echo "Device: $(cat /sys/firmware/devicetree/base/model)"
