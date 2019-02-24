@@ -2,7 +2,7 @@
 #include "comms.h"
 
 /* Build Config */
-#define VERSION "1.0"
+#define VERSION "1.1"
 
 /* Debug Config */
 #define DEBUG_MODE true
@@ -311,12 +311,12 @@ void execute(Execution ex) {
 
 bool execute_movement(Execution ex, bool (*function)(uint8_t, float, float)) {
   if (ex.motor == BOTH_MOTORS) {
-    return (*function)(LEFT_SLOT, ex.args[0] * LEFT_RATIO, ex.args[1]) &
-      (*function)(RIGHT_SLOT, ex.args[0] * RIGHT_RATIO, ex.args[1]);
+    return (*function)(LEFT_SLOT, ex.args[0], ex.args[1] * LEFT_RATIO) &
+      (*function)(RIGHT_SLOT, ex.args[0], ex.args[1] * RIGHT_RATIO);
   } else if (ex.motor == LEFT_MOTOR) {
-    return (*function)(LEFT_SLOT, ex.args[0] * LEFT_RATIO, ex.args[1]);
+    return (*function)(LEFT_SLOT, ex.args[0], ex.args[1] * LEFT_RATIO);
   } else {
-    return (*function)(RIGHT_SLOT, ex.args[0] * RIGHT_RATIO, ex.args[1]);
+    return (*function)(RIGHT_SLOT, ex.args[0], ex.args[1] * RIGHT_RATIO);
   }
 }
 
@@ -378,11 +378,11 @@ bool run_for(uint8_t slot, float speed, float time) {
 }
 
 bool move_by(uint8_t slot, float speed, float angle) {
-  return move(ENCODER_MOTOR_MOVE, slot, angle, speed);
+  return move(ENCODER_MOTOR_MOVE, slot, speed, angle);
 }
 
 bool move_to(uint8_t slot, float speed, float angle) {
-  return move(ENCODER_MOTOR_MOVE_TO, slot, angle, speed);
+  return move(ENCODER_MOTOR_MOVE_TO, slot, speed, angle);
 }
 
 bool move(uint8_t function, uint8_t slot, float speed, float angle) {
