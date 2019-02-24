@@ -1,6 +1,9 @@
 #include <Wire.h>
 #include "comms.h"
 
+/* Build Config */
+#define VERSION "1.0"
+
 /* Debug Config */
 #define DEBUG_MODE true
 #define ERROR(message) Serial.println(message);
@@ -34,6 +37,8 @@
 #define COMMAND_SPD   "SPD"
 #define COMMAND_ERR   "?E"
 #define COMMAND_UPTM  "?U"
+#define COMMAND_VER   "?V"
+#define COMMAND_HNDS  "?H"
 
 /* Encoder Config */
 #define LEFT_SLOT   1
@@ -219,7 +224,7 @@ Execution process_command(char *command) {
         return { .function = SPD, .motor = sections[1][0] };
       }
     }
-  /* ERR, UPTM */
+  /* ERR, UPTM, VER, HNDS */
   } else if (command_lenght == 2 && sections[0][0] == COMMAND_ERR[0]) {
     if (sections[0][1] == COMMAND_ERR[1]) {
       Serial.print(">> ");
@@ -230,6 +235,20 @@ Execution process_command(char *command) {
       Serial.print(">> ");
       Serial.print(millis());
       Serial.println(" <<");
+      return NULL_EXECUTION;
+    } else if (sections[0][1] == COMMAND_VER[1]) {
+      Serial.print(">> ");
+      Serial.print(VERSION);
+      Serial.println(" <<");
+      return NULL_EXECUTION;
+    } else if (sections[0][1] == COMMAND_HNDS[1] ) {
+      if (section_count != 2) {
+        ERROR("!> 45 - Invalid HNDS parameters");
+      } else if (strcmp(sections[1], VERSION) != 0) {
+        ERROR("!> 01 - Invalid HNDS version");
+      } else {
+        Serial.println(">> HANDSHAKE OK <<");
+      }
       return NULL_EXECUTION;
     }
   }
