@@ -5,7 +5,7 @@
 #include <fcntl.h>
 #include <termios.h>
 
-#define LATEST_BUILD "1.0"
+#define LATEST_BUILD "1.1"
 #define EXPECTED_RESPONSE ">> HANDSHAKE OK <<"
 #define OUTDATED_RESPONSE "!> 01 - Invalid HNDS version"
 
@@ -94,8 +94,6 @@ int main(int argc, char const *argv[]) {
             }
         }
     }
-    
-    
 
     close(serial);
     

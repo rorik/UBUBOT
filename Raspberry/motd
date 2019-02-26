@@ -60,8 +60,7 @@ if [ $arduinoresponse -eq 0 ]; then
 elif [ $arduinoresponse -eq 2 ]; then
   arduinostatus="\e[93mOUTDATED\e[39m"
 else
-  #arduinostatus=" \e[91mFAILED\e[39m "
-  arduinostatus=" \e[91m${arduinoresponse}\e[39m "
+  arduinostatus=" \e[91mFAILED\e[39m "
 fi
 
 pip=$(/sbin/ifconfig wlan0 | grep 'inet ' | awk '{print $2}')
