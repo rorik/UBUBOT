@@ -1,0 +1,60 @@
+body {
+    background-color: #1D1F20;
+}
+
+.motors {
+    height: 14rem;
+    padding-top: 3rem;
+}
+
+.vertical {
+    display: inline-block;
+    width: 10%;
+    height: 20px;
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+}
+
+.vertical.left {
+    margin-left: 2rem;
+}
+
+.vertical.right {
+    margin-left: 4rem;
+    margin-top: -2rem;
+}
+
+.vertical.reverse {
+    top: 6rem;
+    position: relative;
+    margin-top: 0;
+    transform: rotate(90deg);
+}
+
+.progress-bar {
+    box-shadow: inset 0px 4px 6px rgba(100, 100, 100, 0.6);
+    position: relative;
+}
+
+.textbox-log {
+    border: 1px solid var(--blue);
+    height: 500px;
+    width: 500px;
+    overflow: auto;
+    display: inline-block;
+    padding: 1rem;
+}
+
+.textbox-log .timestamp {
+    display: inline;
+    margin-right: 1rem;
+}
+
+.textbox-log.hidden-timestamps .timestamp {
+    display: none;
+}
+
+.ububot-container .btn {
+    color: white !important;
+    cursor: pointer;
+}

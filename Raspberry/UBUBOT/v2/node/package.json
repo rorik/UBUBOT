@@ -1,0 +1,28 @@
+{
+  "name": "ububot-rt",
+  "version": "1.0.0",
+  "description": "Realtime visualization for UBUBOT",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/rorik/UBUBOT.git"
+  },
+  "keywords": [
+    "UBUBOT",
+    "Realtime",
+    "io"
+  ],
+  "author": "Roderick - about@rorik.me",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rorik/UBUBOT/issues"
+  },
+  "homepage": "https://github.com/rorik/UBUBOT#readme",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}
