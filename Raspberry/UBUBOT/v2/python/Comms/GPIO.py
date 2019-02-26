@@ -13,7 +13,7 @@ class GPIOObject(object):
     def initialize_GPIO():
         if not GPIOObject._initialized_GPIO:
             GPIO.setmode(GPIO.BOARD)
-            IRSensor._initialized_GPIO = True
+            GPIOObject._initialized_GPIO = True
 
     @staticmethod
     def clean_up():
