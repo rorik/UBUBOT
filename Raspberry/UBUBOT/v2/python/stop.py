@@ -3,4 +3,7 @@ from Comms.Serial import SerialCommunication
 
 if __name__ == '__main__':
     com = SerialCommunication()
+
     com.send("STOP")
+    
+    SerialCommunication.disconnect()

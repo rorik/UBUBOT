@@ -18,3 +18,5 @@ if __name__ == '__main__':
             print('BACKWARDS')
         forw = not forw
         time.sleep(2)
+
+    SerialCommunication.disconnect()
