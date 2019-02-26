@@ -1,4 +1,7 @@
-v20190119
+v20190224
+--- 2019-02-24 ---
+Added v2 handshake/motd
+Added UBUBOT web interface
 --- 2019-01-19 ---
 Firmware updates and Pi 3B+ compatibility
 Fixed cb_config update_bridge
