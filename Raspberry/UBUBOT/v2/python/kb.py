@@ -60,9 +60,10 @@ if __name__ == '__main__':
     parser.add_argument('-sio', '--socket', dest='socket', action='store_const', const=True, default=False)
     args = parser.parse_args()
 
-    ububot = UBUBOT(motors=True, serial_socket_capture=args.socket, motors_socket=args.socket)
-
+    ububot = None
     try:
+        ububot = UBUBOT(motors=True, serial_socket_capture=args.socket, motors_socket=args.socket)
         main(args.speed)
     finally:
-        ububot.finalize()
+        if ububot is not None:
+            ububot.finalize()
