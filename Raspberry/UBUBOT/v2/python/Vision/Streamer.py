@@ -5,16 +5,16 @@ import base64
 import threading
 
 class Streamer(threading.Thread):
-    def __init__(self, delay=1.0):
+    def __init__(self, interval=1.0):
         super(Streamer, self).__init__()
         self.socket = SocketCommunication()
         self.stop_flag = False
         self.image = None
-        self.delay = delay
+        self.interval = interval
 
     def run(self):
         if not self.stop_flag:
-            threading.Timer(self.delay, self.run).start()
+            threading.Timer(self.interval, self.run).start()
             if self.image is not None:
                 self.socket.send_json('ububot-img', {"src": base64.b64encode(cv2.imencode('.jpg', self.image)[1]).decode('utf-8')})
 
