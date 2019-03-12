@@ -31,6 +31,11 @@ io.on("connection", socket => {
         if (ip == "::1") socket.broadcast.emit("ububot-function", msg);
         console.log("Function: " + msg);
     });
+
+    socket.on("ububot-img", msg => {
+        if (ip == "::1") socket.broadcast.emit("ububot-img", msg);
+        console.log("Image");
+    });
 });
 
 http.listen(80, function() {

@@ -83,4 +83,9 @@ $(function() {
 
         appendLine("functions", line);
     });
+    socket.on("ububot-img", img_json => {
+        var img = JSON.parse(img_json);
+        var target = document.getElementById('stream-img');
+        target.setAttribute('src', 'data:image/jpg;charset=utf-8;base64, ' + img.src);
+    });
 });
