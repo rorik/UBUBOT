@@ -24,6 +24,7 @@ wheels/
 .installed.cfg
 *.egg
 MANIFEST
+UBUBOT/out/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -102,6 +103,10 @@ venv.bak/
 
 # mypy
 .mypy_cache/
-**/.vscode
-**/UBUBOT/out/
-**/.idea
+
+# Editors
+.vscode
+.idea
+
+# Dependencies
+node_modules

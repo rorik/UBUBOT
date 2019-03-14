@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/rorik/UBUBOT#readme",
   "dependencies": {
-    "express": "^4.15.2"
+    "express": "^4.16.4",
+    "socket.io": "^2.2.0"
   }
 }
