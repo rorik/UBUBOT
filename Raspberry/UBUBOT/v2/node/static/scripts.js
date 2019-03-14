@@ -99,7 +99,23 @@ $(function() {
     });
     socket.on("ububot-img", img_json => {
         var img = JSON.parse(img_json);
-        var target = document.getElementById('stream-img');
-        target.setAttribute('src', 'data:image/jpg;charset=utf-8;base64, ' + img.src);
+        setImage('data:image/jpg;charset=utf-8;base64, ' + img.src);
     });
 });
+
+var lastImage = null;
+function setImage(img) {
+    var target = document.getElementById('stream-img');
+    target.setAttribute('src', img);
+    lastImage = new Date();
+}
+
+
+setInterval(function() {
+    if (lastImage != null) {
+        if (new Date().getTime() - lastImage.getTime() >= 5000) {
+            setImage('/disconnected.png');
+            lastImage = null;
+        }
+    }
+}, 1000);

@@ -28,9 +28,6 @@ div.options.container-fluid {
 }
 
 div.options>div {
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
     display: flex;
     justify-content: space-between;
 }
@@ -128,4 +125,16 @@ div.diagram>div>div.progress {
 .btn {
     color: white !important;
     cursor: pointer;
+}
+
+.v-centered {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.h-centered {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }

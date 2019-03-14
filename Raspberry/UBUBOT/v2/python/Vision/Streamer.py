@@ -23,6 +23,7 @@ class Streamer(threading.Thread):
     
     def finalize(self):
         self.stop_flag = True
+        self.image = None
         self.socket.disconnect()
 
     def __enter__(self):
