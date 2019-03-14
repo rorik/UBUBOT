@@ -30,6 +30,13 @@ function appendLine(textbox, line) {
     element.scrollTop = element.scrollHeight;
 }
 
+function clearTextbox(textbox) {
+    var element = document.getElementById("textbox-" + textbox);
+    while (element.firstChild) {
+        element.removeChild(element.firstChild);
+    }
+}
+
 function pad(number, size){
     return ("000" + number).substr(-size);
 }
@@ -39,6 +46,13 @@ function toggleTimestamps() {
     for(var i = 0; i < textboxes.length; i++) {
         textboxes[i].classList.toggle("hidden-timestamps");
     }
+}
+
+function reset() {
+    clearTextbox('serial');
+    clearTextbox('functions');
+    var element = document.getElementById('stream-img');
+    element.setAttribute('src', '');
 }
 
 $(function() {

@@ -1,73 +1,68 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>UBUBOT Monitor</title>
-        <link rel="stylesheet" href="/styles.css" />
-        <link rel="stylesheet" href="/lib/bootstrap.min.css"/>
-        <script src="/lib/jquery-3.3.1.min.js"></script>
-        <script src="/scripts.js"></script>
-        <script src="/lib/popper.min.js"></script>
-        <script src="/lib/bootstrap.min.js"></script>
-        <script src="/socket.io/socket.io.js"></script>
-    </head>
-    <body>
-        <div class="ububot-container">
-            <div class="motors container">
-                <div>
+
+<head>
+    <title>UBUBOT Monitor</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/lib/bootstrap.min.css" />
+    <script src="/lib/jquery-3.3.1.min.js"></script>
+    <script src="/scripts.js"></script>
+    <script src="/lib/popper.min.js"></script>
+    <script src="/lib/bootstrap.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+
+<body>
+    <div class="row h-100 no-gutters">
+        <div class="col-9 h-100">
+            <div class="stream container-fluid">
+                <img id="stream-img" />
+            </div>
+            <div class="control container-fluid"></div>
+        </div>
+        <div class="col-3 h-100">
+            <div class="diagram container-fluid">
+                <div class="motors h-100 w-100">
                     <div class="progress vertical left">
-                        <div
-                            id="left-motor"
-                            class="progress-bar progress-bar-warning"
-                            role="progressbar"
-                            aria-valuenow="0"
-                            aria-valuemin="0"
-                            aria-valuemax="100"
-                            style="width: 0;"
-                        ></div>
+                        <div id="left-motor" class="progress-bar progress-bar-warning" role="progressbar"
+                            aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div>
                     </div>
                     <div class="progress vertical left reverse">
-                        <div
-                            id="left-motor-reverse"
-                            class="progress-bar progress-bar-warning"
-                            role="progressbar"
-                            aria-valuenow="0"
-                            aria-valuemin="0"
-                            aria-valuemax="100"
-                            style="width: 0;"
-                        ></div>
+                        <div id="left-motor-reverse" class="progress-bar progress-bar-warning" role="progressbar"
+                            aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div>
+                    </div>
+                    <div class="progress vertical right">
+                        <div id="right-motor" class="progress-bar progress-bar-danger" role="progressbar"
+                            aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div>
+                    </div>
+                    <div class="progress vertical right reverse">
+                        <div id="right-motor-reverse" class="progress-bar progress-bar-danger" role="progressbar"
+                            aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div>
+                    </div>
+                    <div class="sensors w-100 h-100">
+                        <div id="north" class="sensor vertical north"></div>
+                        <div id="east" class="sensor horizontal east"></div>
+                        <div id="south" class="sensor vertical south"></div>
+                        <div id="west" class="sensor horizontal west"></div>
                     </div>
                 </div>
-                <div class="progress vertical right">
-                    <div
-                        id="right-motor"
-                        class="progress-bar progress-bar-danger"
-                        role="progressbar"
-                        aria-valuenow="0"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                        style="width: 0;"
-                    ></div>
+            </div>
+            <div class="log container-fluid">
+                <div class="textbox-log" id="textbox-serial">
+                    <div>Serial Input</div>
                 </div>
-                <div class="progress vertical right reverse">
-                    <div
-                        id="right-motor-reverse"
-                        class="progress-bar progress-bar-danger"
-                        role="progressbar"
-                        aria-valuenow="0"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                        style="width: 0;"
-                    ></div>
+                <div class="textbox-log" id="textbox-functions">
+                    <div>Functions</div>
                 </div>
             </div>
-            <div class="textbox-log" id="textbox-serial">
-                <div>Serial Input</div>
+            <div class="options container-fluid">
+                <div>
+                    <a class="btn btn-primary button" role="button" onclick="toggleTimestamps()">Toggle Timestamps</a>
+                    <a class="btn btn-primary button" role="button" onclick="reset()">Reset</a>
+                </div>
             </div>
-            <div class="textbox-log" id="textbox-functions">
-                <div>Functions</div>
-            </div>
-            <a class="btn btn-primary button" role="button" onclick="toggleTimestamps()">Toggle Timestamps</a>
-            <img id="stream-img"/>
         </div>
-    </body>
+    </div>
+</body>
+
 </html>
