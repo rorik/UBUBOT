@@ -32,14 +32,6 @@ div.options>div {
     justify-content: space-between;
 }
 
-.progress.vertical {
-    display: inline-block;
-    width: 10%;
-    height: 20px;
-    -webkit-transform: rotate(-90deg);
-    transform: rotate(-90deg);
-}
-
 div.diagram>div>div.progress {
     width: 5rem;
     height: 2%;
@@ -61,13 +53,13 @@ div.diagram>div>div.progress {
 .sensor.vertical {
     width: 1rem;
     height: 2rem;
-    left: 46%;
+    left: 47%;
 }
 
 .sensor.horizontal {
     width: 2rem;
     height: 1rem;
-    top: 13%;
+    top: 14%;
 }
 
 .sensor.north {
@@ -84,6 +76,14 @@ div.diagram>div>div.progress {
 
 .sensor.west {
     left: 16%;
+}
+
+.progress.vertical {
+    display: inline-block;
+    width: 10%;
+    height: 20px;
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
 }
 
 .progress.vertical.left {
