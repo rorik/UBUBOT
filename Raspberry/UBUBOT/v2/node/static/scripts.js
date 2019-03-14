@@ -48,11 +48,30 @@ function toggleTimestamps() {
     }
 }
 
+var lastImage = null;
+function setImage(img) {
+    var target = document.getElementById('stream-img');
+    target.setAttribute('src', img);
+    lastImage = new Date();
+}
+
+function resetImage() {
+    var target = document.getElementById('stream-img');
+    target.setAttribute('src', '/disconnected.png');
+}
+
+setInterval(function() {
+    if (lastImage != null) {
+        if (new Date().getTime() - lastImage.getTime() >= 5000) {
+            resetImage();
+        }
+    }
+}, 1000);
+
 function reset() {
     clearTextbox('serial');
     clearTextbox('functions');
-    var element = document.getElementById('stream-img');
-    element.setAttribute('src', '');
+    resetImage();
 }
 
 $(function() {
@@ -102,20 +121,3 @@ $(function() {
         setImage('data:image/jpg;charset=utf-8;base64, ' + img.src);
     });
 });
-
-var lastImage = null;
-function setImage(img) {
-    var target = document.getElementById('stream-img');
-    target.setAttribute('src', img);
-    lastImage = new Date();
-}
-
-
-setInterval(function() {
-    if (lastImage != null) {
-        if (new Date().getTime() - lastImage.getTime() >= 5000) {
-            setImage('/disconnected.png');
-            lastImage = null;
-        }
-    }
-}, 1000);
