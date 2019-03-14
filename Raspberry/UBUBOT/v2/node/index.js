@@ -1,16 +1,10 @@
-var app = require("express")();
+var express = require("express");
+var app = express();
 var http = require("http").Server(app);
 var io = require("socket.io")(http);
 
-app.get("/", function(req, res) {
-    res.sendFile(__dirname + "/static/index.html");
-});
-app.get("/styles.css", function(req, res) {
-    res.sendFile(__dirname + "/static/styles.css");
-});
-app.get("/scripts.js", function(req, res) {
-    res.sendFile(__dirname + "/static/scripts.js");
-});
+app.use('/lib', express.static('libjs'))
+app.use(express.static('static'))
 
 io.on("connection", socket => {
     var ip = socket.handshake.address;
