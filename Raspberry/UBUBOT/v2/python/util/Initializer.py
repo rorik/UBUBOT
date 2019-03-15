@@ -18,7 +18,7 @@ class UBUBOT(object):
 
     def __init__(self, motors=False, sensors=False, relays=False, serial=False, serial_capture=False, socket=False, motors_socket=False, serial_socket_capture=False, all=False):
         if sensors or all:
-            self.sensors = CardinalGroup(north=IRSensor(12), south=IRSensor(16), west=IRSensor(18), east=IRSensor(22))
+            self.sensors = CardinalGroup(north=IRSensor(16), south=IRSensor(22), west=IRSensor(18), east=IRSensor(12))
         if relays or all:
             self.relays = FunctionalGroup(light=Relay(7), buzzer=Relay(11), motor_1=Relay(13), motor_2=Relay(15))
         if serial or all or serial_capture or serial_socket_capture:
