@@ -113,7 +113,7 @@ if __name__ == '__main__':
             if speed not in t_speeds and speed > 0:
                 t_speeds.append(speed)
         if len(t_speeds) == 0:
-            raise TypeError('Expected at least one non-zero positive integer')
+            raise ValueError('Expected at least one non-zero positive integer')
     else:
         t_speeds = [50, 100, 150, 200]
 
@@ -123,7 +123,7 @@ if __name__ == '__main__':
             if speed not in a_speeds and speed > 0:
                 a_speeds.append(speed)
         if len(a_speeds) == 0:
-            raise TypeError('Expected at least one non-zero positive integer')
+            raise ValueError('Expected at least one non-zero positive integer')
     else:
         a_speeds = [50, 100, 150, 200]
 

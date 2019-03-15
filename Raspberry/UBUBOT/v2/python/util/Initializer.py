@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 from Motor.MotorPair import MotorPair, MotorPairDirection, MotorIdentifier
+from Motor.Servo import Servo, ServoGroup
 from Sensor.IR import IRSensor
 from Sensor.SensorGroup import CardinalGroup
 from Relay.Relay import Relay
@@ -11,16 +12,21 @@ class UBUBOT(object):
     motors = None
     sensors = None
     relays = None
+    servos = None
     serial = None
     socket = None
     serial_capture = None
     _serial_captures = []
 
-    def __init__(self, motors=False, sensors=False, relays=False, serial=False, serial_capture=False, socket=False, motors_socket=False, serial_socket_capture=False, all=False):
+    def __init__(self, motors=False, sensors=False, relays=False, servos=False, serial=False, serial_capture=False, socket=False, motors_socket=False, serial_socket_capture=False, all=False):
         if sensors or all:
             self.sensors = CardinalGroup(north=IRSensor(16), south=IRSensor(22), west=IRSensor(18), east=IRSensor(12))
         if relays or all:
             self.relays = FunctionalGroup(light=Relay(7), buzzer=Relay(11), motor_1=Relay(13), motor_2=Relay(15))
+        if servos or all:
+            servos_group = [Servo(channel, min_pwn=108, max_pwm=500, max_angle=120) for channel in range(8)]
+            servos_group.extend([Servo(channel, min_pwn=200, max_pwm=2300, max_angle=360) for channel in range(8, 16)])
+            self.servos = ServoGroup(servos_group)
         if serial or all or serial_capture or serial_socket_capture:
             self.serial = SerialCommunication()
         if serial_capture or all or serial_socket_capture:
