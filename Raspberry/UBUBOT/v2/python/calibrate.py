@@ -3,18 +3,18 @@ from Motor.MotorPair import MotorPairDirection
 from util.Initializer import UBUBOT
 from argparse import ArgumentParser
 from sys import stdin, stdout
-import tty
-import termios
+from tty import setraw
+from termios import tcgetattr, tcsetattr, TCSADRAIN
 
 
 def getChar():
     fd = stdin.fileno()
-    old_settings = termios.tcgetattr(fd)
+    old_settings = tcgetattr(fd)
     try:
-        tty.setraw(stdin.fileno())
+        setraw(stdin.fileno())
         ch = stdin.read(1)
     finally:
-        termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+        tcsetattr(fd, TCSADRAIN, old_settings)
     return ch
 
 
@@ -127,11 +127,9 @@ if __name__ == '__main__':
     else:
         a_speeds = [50, 100, 150, 200]
 
-    ububot = None
-    try:
-        print("Starting calibration.")
-        print("Press 'c' at any moment to cancel the calibration process.")
-        ububot = UBUBOT(motors=True, serial_socket_capture=args.socket, motors_socket=args.socket)
+    print("Starting calibration.")
+    print("Press 'c' at any moment to cancel the calibration process.")
+    with UBUBOT(motors=True, serial_socket_capture=args.socket, motors_socket=args.socket) as ububot:
         t_ratios = sharp(ububot, t_speeds, args.angle)
         if t_ratios is None:
             exit(-1)
@@ -146,6 +144,3 @@ if __name__ == '__main__':
         for speed, ratio in zip(a_speeds, a_ratios):
             print("SPEED [ {} ] : {:.3f}".format(str(speed).rjust(3), ratio))
         print()
-    finally:
-        if ububot is not None:
-            ububot.finalize()

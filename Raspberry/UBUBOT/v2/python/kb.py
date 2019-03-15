@@ -3,18 +3,18 @@ from Motor.MotorPair import MotorPair, MotorPairDirection, MotorIdentifier
 from util.Initializer import UBUBOT
 from argparse import ArgumentParser
 from sys import stdin, stdout
-import tty
-import termios
+from tty import setraw
+from termios import tcgetattr, tcsetattr, TCSADRAIN
 
 
 def getChar():
     fd = stdin.fileno()
-    old_settings = termios.tcgetattr(fd)
+    old_settings = tcgetattr(fd)
     try:
-        tty.setraw(stdin.fileno())
+        setraw(stdin.fileno())
         ch = stdin.read(1)
     finally:
-        termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+        tcsetattr(fd, TCSADRAIN, old_settings)
     return ch
 
 def main(speed):
@@ -60,10 +60,6 @@ if __name__ == '__main__':
     parser.add_argument('-sio', '--socket', dest='socket', action='store_const', const=True, default=False)
     args = parser.parse_args()
 
-    ububot = None
-    try:
+    with UBUBOT(motors=True, serial_socket_capture=args.socket, motors_socket=args.socket) as ububot:
         ububot = UBUBOT(motors=True, serial_socket_capture=args.socket, motors_socket=args.socket)
         main(args.speed)
-    finally:
-        if ububot is not None:
-            ububot.finalize()

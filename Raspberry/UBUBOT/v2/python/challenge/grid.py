@@ -70,9 +70,7 @@ if __name__ == '__main__':
     remaining.append(end)
     position = start.copy()
 
-    ububot = None
-    try:
-        #ububot = UBUBOT(motors=True)
+    with UBUBOT(motors=True) as ububot:
         print('== PATH ==')
         print(" => ".join([str(position) for position in [start] + remaining]))
         print('==========')
@@ -95,6 +93,3 @@ if __name__ == '__main__':
                     print('REACHED TARGET', remaining[0])
                     remaining.pop(0)
                     break
-    finally:
-        if ububot is not None:
-            ububot.finalize()

@@ -4,7 +4,6 @@ from Sensor.SensorGroup import CardinalPosition
 from util.Initializer import UBUBOT
 from time import sleep
 from sys import stdout
-import RPi.GPIO as GPIO
 
 def callback(pin):
     for position in remaining:
@@ -14,9 +13,7 @@ def callback(pin):
 
 if __name__ == '__main__':
 
-    ububot = None
-    try:
-        ububot = UBUBOT(sensors=True)
+    with UBUBOT(sensors=True) as ububot:
         remaining = [position for position in CardinalPosition]
 
         ububot.sensors.get_east().add_callback(SensorEvent.DETECT_START, callback)
@@ -27,6 +24,3 @@ if __name__ == '__main__':
             print("Remaining:", ", ".join([position.name for position in remaining]))
             sleep(0.1)
             stdout.write("\033[F\033[K")
-    finally:
-        if ububot is not None:
-            ububot.finalize()

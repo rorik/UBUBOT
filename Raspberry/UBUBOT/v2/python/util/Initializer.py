@@ -61,6 +61,12 @@ class UBUBOT(object):
         if self.relays:
             Relay.clean_up()
         UBUBOT.disconnect_communications()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, type, value, traceback):
+        self.finalize()
     
     @staticmethod
     def disconnect_communications():

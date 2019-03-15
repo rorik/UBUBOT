@@ -10,9 +10,7 @@ if __name__ == '__main__':
     parser.add_argument('N', nargs='?', type=int, default=2)
 
     ububot = None
-    try:
-        ububot = UBUBOT(motors=True, sensors=True)
-
+    with UBUBOT(motors=True, sensors=True) as ububot:
         for i in range(parser.parse_args().N * 4):
             ububot.motors.run(MotorIdentifier.BOTH, speed=100)
             ububot.sensors.get_north().wait(SensorEvent.DETECT_START, timeout=1000)
@@ -20,6 +18,3 @@ if __name__ == '__main__':
             sleep(1)
             ububot.motors.turn_sharp(MotorPairDirection.SHARP_RIGHT, speed=100, angle=90)
             sleep(1)
-    finally:
-        if ububot is not None:
-            ububot.finalize()

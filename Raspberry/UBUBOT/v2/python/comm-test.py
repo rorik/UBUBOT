@@ -10,9 +10,7 @@ if __name__ == '__main__':
     parser.add_argument('N', type=int, default=4)
 
     forw = True
-    ububot = None
-    try:
-        ububot = UBUBOT(serial_socket_capture=True)
+    with UBUBOT(serial_socket_capture=True) as ububot:
         for i in range(parser.parse_args().N * 2):
             if forw:
                 ububot.serial.send("MOVB;B;180;50")
@@ -22,6 +20,3 @@ if __name__ == '__main__':
                 print('BACKWARDS')
             forw = not forw
             time.sleep(1)
-    finally:
-        if ububot is not None:
-            ububot.finalize()

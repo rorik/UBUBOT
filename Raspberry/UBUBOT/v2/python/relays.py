@@ -10,10 +10,7 @@ if __name__ == '__main__':
     parser.add_argument('N', nargs='?', type=int, default=4)
     N = parser.parse_args().N
 
-    ububot = None
-    try:
-        ububot = UBUBOT(relays=True)
-
+    with UBUBOT(relays=True) as ububot:
         for i in range(N):
             print("off")
             ububot.relays.off()
@@ -21,6 +18,3 @@ if __name__ == '__main__':
             print("on")
             ububot.relays.on()
             sleep(1)
-    finally:
-        if ububot is not None:
-            ububot.finalize()
