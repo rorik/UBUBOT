@@ -1,0 +1,3 @@
+#define ENABLE_CHANNEL 2
+#define LEFT_CHANNEL 26
+#define RIGHT_CHANNEL 23
