@@ -28,29 +28,28 @@ def get_sections(img, precision=10):
 
     img = _to_binary(img)
 
-    lines = _sections(img, precision)
-    return lines
+    return _sections(img, precision)
 
 
-def draw_lines(img, lines=None):
+def draw_lines(img, lines=None, color=(0, 255, 0)):
     if lines is None:
         lines = get_lines(img)
         if lines is None:
             return
     for line in lines:
         for x1, y1, x2, y2 in line:
-            cv2.line(img, (x1, y1), (x2, y2), (0, 255, 0), 2)
+            cv2.line(img, (x1, y1), (x2, y2), color, 2)
 
 
-def draw_contours(img, contours=None):
+def draw_contours(img, contours=None, color=(0, 255, 0)):
     if contours is None:
         contours = get_contours(img)
         if contours is None:
             return
-    cv2.drawContours(img, contours, -1, (0, 255, 0), 3)
+    cv2.drawContours(img, contours, -1, color, 3)
 
 
-def draw_sections(img, sections=None):
+def draw_sections(img, sections=None, color=(0, 255, 0)):
     if sections is None:
         sections = get_sections(img)
         if sections is None:
@@ -60,7 +59,7 @@ def draw_sections(img, sections=None):
         y = int(img.shape[0] * (relative_y + 50) / 100) - 1
         lines.extend([[[int(line[0] * img.shape[1] / 100), y,
                         int(line[1] * img.shape[1] / 100), y]] for line in section])
-    draw_lines(img, lines)
+    draw_lines(img, lines, color)
 
 
 def _sections(img, precision):
