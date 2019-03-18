@@ -1,13 +1,11 @@
 #!/usr/bin/python3
-from itertools import chain
-import numpy as np
 import cv2
 
 
 def get_stops(sections, threshold=30):
     return {relative_y: [line for line in section if line[1] - line[0] > threshold] for relative_y, section in sections.items()}
 
-def get_paths(sections, threshold=30):
+def get_paths(sections):
     sorted_sections = sorted(sections.items(), reverse=True)
     paths = []
     closed = []
