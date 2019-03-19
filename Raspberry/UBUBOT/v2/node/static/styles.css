@@ -138,3 +138,30 @@ div.diagram>div>div.progress {
     margin-left: auto;
     margin-right: auto;
 }
+
+.pwm-pins-group {
+    display: inline-block;
+}
+.pwm-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+.pwm-module {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.pwm-pin {
+    width: 2rem;
+    height: 1rem;
+    line-height: 1rem;
+    text-align: center;
+    background-color: #222;
+    display: inline-block;
+    color: white;
+}
+
+.pwm-pin.active {
+    background-color: var(--blue);
+}
