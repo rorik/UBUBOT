@@ -72,6 +72,32 @@ function reset() {
     clearTextbox('serial');
     clearTextbox('functions');
     resetImage();
+    resetAllBars();
+    resetAllSensors();
+    resetAllRelays();
+}
+
+function resetAllBars() {
+    bars = document.getElementsByClassName("progress-bar");
+    for(var i = 0; i < bars.length; i++) {
+        bars[i].style.width = 0;
+        bars[i].attributes.getNamedItem("aria-valuenow").value = 0;
+    }
+}
+
+function resetAllSensors() {
+    sensors = document.getElementsByClassName("sensor");
+    for(var i = 0; i < sensors.length; i++) {
+        sensors[i].classList.remove("active");
+    }
+}
+
+
+function resetAllRelays() {
+    relays = document.getElementsByClassName("relay");
+    for(var i = 0; i < relays.length; i++) {
+        relays[i].classList.remove("active");
+    }
 }
 
 $(function() {
@@ -137,7 +163,6 @@ $(function() {
     });
     socket.on("ububot-status-io", data_json => {
         data = JSON.parse(data_json);
-        console.log(data);
         if ("type" in data) {
             switch (data.type.toLowerCase()) {
                 case "sensor":
