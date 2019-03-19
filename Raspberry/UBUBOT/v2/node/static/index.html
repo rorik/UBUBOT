@@ -39,22 +39,70 @@
                     <div id="relay-buzzer" class="relay col-3 activable"><i class="fas fa-volume-up v-centered"></i></div>
                 </div>
                 <div class="col-4 pwm-container row no-gutters h-100">
-                    <div id="pwm-1" class="col-3 pwm-pin activable"><div class="v-centered"><span>1</span></div></div>
-                    <div id="pwm-2" class="col-3 pwm-pin activable"><div class="v-centered"><span>2</span></div></div>
-                    <div id="pwm-3" class="col-3 pwm-pin activable"><div class="v-centered"><span>3</span></div></div>
-                    <div id="pwm-4" class="col-3 pwm-pin activable"><div class="v-centered"><span>4</span></div></div>
-                    <div id="pwm-5" class="col-3 pwm-pin activable"><div class="v-centered"><span>5</span></div></div>
-                    <div id="pwm-6" class="col-3 pwm-pin activable"><div class="v-centered"><span>6</span></div></div>
-                    <div id="pwm-7" class="col-3 pwm-pin activable"><div class="v-centered"><span>7</span></div></div>
-                    <div id="pwm-8" class="col-3 pwm-pin activable"><div class="v-centered"><span>8</span></div></div>
-                    <div id="pwm-9" class="col-3 pwm-pin activable"><div class="v-centered"><span>9</span></div></div>
-                    <div id="pwm-10" class="col-3 pwm-pin activable"><div class="v-centered"><span>10</span></div></div>
-                    <div id="pwm-11" class="col-3 pwm-pin activable"><div class="v-centered"><span>11</span></div></div>
-                    <div id="pwm-12" class="col-3 pwm-pin activable"><div class="v-centered"><span>12</span></div></div>
-                    <div id="pwm-13" class="col-3 pwm-pin activable"><div class="v-centered"><span>13</span></div></div>
-                    <div id="pwm-14" class="col-3 pwm-pin activable"><div class="v-centered"><span>14</span></div></div>
-                    <div id="pwm-15" class="col-3 pwm-pin activable"><div class="v-centered"><span>15</span></div></div>
-                    <div id="pwm-16" class="col-3 pwm-pin activable"><div class="v-centered"><span>16</span></div></div>
+                    <div id="pwm-1" class="col-3 pwm-pin progress">
+                        <div id="bar-pwm-1" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-label v-centered"><span></span>1</span></div>
+                    </div>
+                    <div id="pwm-2" class="col-3 pwm-pin progress">
+                        <div id="bar-pwm-2" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-label v-centered"><span>2</span></div>
+                    </div>
+                    <div id="pwm-3" class="col-3 pwm-pin progress">
+                        <div id="bar-pwm-3" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-label v-centered"><span>3</span></div>
+                    </div>
+                    <div id="pwm-4" class="col-3 pwm-pin progress">
+                        <div id="bar-pwm-4" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-label v-centered"><span>4</span></div>
+                    </div>
+                    <div id="pwm-5" class="col-3 pwm-pin progress">
+                        <div id="bar-pwm-5" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-label v-centered"><span>5</span></div>
+                    </div>
+                    <div id="pwm-6" class="col-3 pwm-pin progress">
+                        <div id="bar-pwm-6" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-label v-centered"><span>6</span></div>
+                    </div>
+                    <div id="pwm-7" class="col-3 pwm-pin progress">
+                        <div id="bar-pwm-7" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-label v-centered"><span>7</span></div>
+                    </div>
+                    <div id="pwm-8" class="col-3 pwm-pin progress">
+                        <div id="bar-pwm-8" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-label v-centered"><span>8</span></div>
+                    </div>
+                    <div id="pwm-9" class="col-3 pwm-pin progress">
+                        <div id="bar-pwm-9" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-label v-centered"><span>9</span></div>
+                    </div>
+                    <div id="pwm-10" class="col-3 pwm-pin progress">
+                        <div id="bar-pwm-10" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-label v-centered"><span>10</span></div>
+                    </div>
+                    <div id="pwm-11" class="col-3 pwm-pin progress">
+                        <div id="bar-pwm-11" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-label v-centered"><span>11</span></div>
+                    </div>
+                    <div id="pwm-12" class="col-3 pwm-pin progress">
+                        <div id="bar-pwm-12" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-label v-centered"><span>12</span></div>
+                    </div>
+                    <div id="pwm-13" class="col-3 pwm-pin progress">
+                        <div id="bar-pwm-13" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-label v-centered"><span>13</span></div>
+                    </div>
+                    <div id="pwm-14" class="col-3 pwm-pin progress">
+                        <div id="bar-pwm-14" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-label v-centered"><span>14</span></div>
+                    </div>
+                    <div id="pwm-15" class="col-3 pwm-pin progress">
+                        <div id="bar-pwm-15" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-label v-centered"><span>15</span></div>
+                    </div>
+                    <div id="pwm-16" class="col-3 pwm-pin progress">
+                        <div id="bar-pwm-16" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-label v-centered"><span>16</span></div>
+                    </div>
                 </div>
             </div>
         </div>

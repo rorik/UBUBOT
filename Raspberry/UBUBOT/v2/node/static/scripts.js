@@ -161,13 +161,16 @@ $(function() {
                     }
                     break;
                 case "pwm":
-                    pwm = document.getElementById("pwm-" + data.channel);
+                    pwm = document.getElementById("bar-pwm-" + data.channel);
                     if (pwm != null) {
-                        if (data.value) {
-                            pwm.classList.add("active");
-                        } else {
-                            pwm.classList.remove("active");
+                        var value = Math.round(100 * (data.value - data.min) / (data.max - data.min));
+                        if (value > 100) {
+                            value = 100;
+                        } else if (value < 0) {
+                            value = 0;
                         }
+                        pwm.style.width = value + "%";
+                        pwm.attributes.getNamedItem("aria-valuenow").value = value;
                     }
                     break;
                 default:
