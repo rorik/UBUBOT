@@ -41,13 +41,16 @@ div.diagram>div>div.progress {
 }
 
 .sensor {
-    background-color: #222;
     position: absolute;
     box-shadow: inset 0px 4px 6px rgba(100, 100, 100, 0.6);
 }
 
-.sensor.active {
+div.activable.active {
     background-color: var(--blue);
+}
+
+div.activable {
+    background-color: #222;
 }
 
 .sensor.vertical {
@@ -145,6 +148,7 @@ div.diagram>div>div.progress {
 .pwm-container {
     display: flex;
     justify-content: space-evenly;
+    white-space: nowrap;
 }
 .pwm-module {
     display: flex;
@@ -157,11 +161,15 @@ div.diagram>div>div.progress {
     height: 1rem;
     line-height: 1rem;
     text-align: center;
-    background-color: #222;
     display: inline-block;
     color: white;
 }
 
-.pwm-pin.active {
-    background-color: var(--blue);
+.relay {
+    height: 100%;
+    display: inline-block;
+    color: white;
+    text-align: center;
+    font-size: 1.6rem;
+    line-height: 1.6rem;
 }
