@@ -10,13 +10,14 @@ if __name__ == '__main__':
     parser = ArgumentParser(description=__doc__)
     parser.add_argument('-c', '--channel', type=int, default=7)
     parser.add_argument('-a', '--angle', type=float, nargs='+', default=[0, 60, 120])
+    parser.add_argument('-sio', '--socket', dest='socket', action='store_const', const=True, default=False)
     parser.add_argument('N', nargs='?', type=int, default=4)
     args = parser.parse_args()
 
     if not 0 <= args.channel <= 15:
         raise ChannelOutOfBoundsError("Channel = " + str(args.channel) + ". Range = [0, 15]")
 
-    with UBUBOT(servos=True) as ububot:
+    with UBUBOT(servos=True, status_socket=args.socket) as ububot:
         for i in range(args.N):
             for angle in args.angle:
                 ububot.servos.get(args.channel).angle(angle)

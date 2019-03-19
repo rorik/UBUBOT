@@ -27,6 +27,11 @@ io.on("connection", socket => {
         console.log("Function: " + msg);
     });
 
+    socket.on("ububot-status", msg => {
+        if (ip == "::1") socket.broadcast.emit("ububot-status-io", msg);
+        console.log("Status: " + msg);
+    });
+
     socket.on("ububot-img", msg => {
         if (ip == "::1") socket.broadcast.emit("ububot-img", msg);
         console.log("Image");

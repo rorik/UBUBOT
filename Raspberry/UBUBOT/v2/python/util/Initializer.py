@@ -18,22 +18,31 @@ class UBUBOT(object):
     serial_capture = None
     _serial_captures = []
 
-    def __init__(self, motors=False, sensors=False, relays=False, servos=False, serial=False, serial_capture=False, socket=False, motors_socket=False, serial_socket_capture=False, all=False):
+    def __init__(self, motors=False, sensors=False, relays=False, servos=False, serial=False, serial_capture=False, socket=False, motors_socket=False, serial_socket_capture=False, status_socket=False, all=False):
+        if socket or all or motors_socket or serial_socket_capture or status_socket:
+            self.socket = SocketCommunication()
         if sensors or all:
-            self.sensors = CardinalGroup(north=IRSensor(16), south=IRSensor(22), west=IRSensor(18), east=IRSensor(12))
+            listener = None
+            if status_socket:
+                listener = lambda status: self.socket.send_json("ububot-status", status)
+            self.sensors = CardinalGroup(north=IRSensor(16, listener), south=IRSensor(22, listener), west=IRSensor(18, listener), east=IRSensor(12, listener))
         if relays or all:
-            self.relays = FunctionalGroup(light=Relay(7), buzzer=Relay(11), motor_1=Relay(13), motor_2=Relay(15))
+            listener = None
+            if status_socket:
+                listener = lambda status: self.socket.send_json("ububot-status", status)
+            self.relays = FunctionalGroup(light=Relay(7, state_listener=listener), buzzer=Relay(11, state_listener=listener), motor_1=Relay(13, state_listener=listener), motor_2=Relay(15, state_listener=listener))
         if servos or all:
-            servos_group = [Servo(channel, min_pwn=108, max_pwm=500, max_angle=120) for channel in range(8)]
-            servos_group.extend([Servo(channel, min_pwn=200, max_pwm=2300, max_angle=360) for channel in range(8, 16)])
+            listener = None
+            if status_socket:
+                listener = lambda status: self.socket.send_json("ububot-status", status)
+            servos_group = [Servo(channel, min_pwn=108, max_pwm=500, max_angle=120, state_listener=listener) for channel in range(8)]
+            servos_group.extend([Servo(channel, min_pwn=200, max_pwm=2300, max_angle=360, state_listener=listener) for channel in range(8, 16)])
             self.servos = ServoGroup(servos_group)
         if serial or all or serial_capture or serial_socket_capture:
             self.serial = SerialCommunication()
         if serial_capture or all or serial_socket_capture:
             self.serial_capture = SerialCapture()
             self.serial_capture.start(lambda line: self._serial_capture_callback(line))
-        if socket or all or motors_socket or serial_socket_capture:
-            self.socket = SocketCommunication()
         if motors or all or motors_socket:
             if motors_socket:
                 self.motors = MotorPair(lambda result: self.socket.send_json("ububot-function", result))

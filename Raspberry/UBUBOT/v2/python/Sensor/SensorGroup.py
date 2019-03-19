@@ -13,6 +13,10 @@ class CardinalGroup(object):
         self._south = south
         self._west = west
         self._east = east
+        for identifier in CardinalPosition:
+            sensor = self.get(identifier)
+            if sensor is not None:
+                sensor.set_name(identifier.name)
 
     def get(self, position):
         if position == CardinalPosition.NORTH:

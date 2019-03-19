@@ -16,6 +16,10 @@ class FunctionalGroup(object):
         self._buzzer = buzzer
         self._motor_1 = motor_1
         self._motor_2 = motor_2
+        for identifier in FunctionalIdentifier:
+            relay = self.get(identifier)
+            if relay is not None:
+                relay.set_name(identifier.name)
 
     def get(self, identifier):
         if identifier == FunctionalIdentifier.LIGHT:

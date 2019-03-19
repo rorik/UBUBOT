@@ -122,17 +122,57 @@ $(function() {
     });
     socket.on("ububot-status", data => {
         var value;
-        if ('cpu' in data && data.cpu >= 0) {
+        if ("cpu" in data && data.cpu >= 0) {
             value = Math.round(data.cpu);
             document.getElementById("status-cpu-bar").style.width = value + "%";
             document.getElementById("status-cpu-bar").attributes.getNamedItem("aria-valuenow").value = value;
             document.getElementById("status-cpu-value").innerText = value + '%';
         }
-        if ('temp' in data && data.temp >= 0) {
+        if ("temp" in data && data.temp >= 0) {
             value = Math.round(data.temp/0.80);
             document.getElementById("status-temp-bar").style.width = value + "%";
             document.getElementById("status-temp-bar").attributes.getNamedItem("aria-valuenow").value = value;
             document.getElementById("status-temp-value").innerText = Math.round(data.temp) + '°C';
+        }
+    });
+    socket.on("ububot-status-io", data_json => {
+        data = JSON.parse(data_json);
+        console.log(data);
+        if ("type" in data) {
+            switch (data.type.toLowerCase()) {
+                case "sensor":
+                    sensor = document.getElementById("sensor-" + data.name.toLowerCase());
+                    if (sensor != null) {
+                        if (!data.state) {
+                            sensor.classList.add("active");
+                        } else {
+                            sensor.classList.remove("active");
+                        }
+                    }
+                    break;
+                case "relay":
+                    relay = document.getElementById("relay-" + data.name.toLowerCase().replace('_', '-'));
+                    if (relay != null) {
+                        if (!data.state) {
+                            relay.classList.add("active");
+                        } else {
+                            relay.classList.remove("active");
+                        }
+                    }
+                    break;
+                case "pwm":
+                    pwm = document.getElementById("pwm-" + data.channel);
+                    if (pwm != null) {
+                        if (data.value) {
+                            pwm.classList.add("active");
+                        } else {
+                            pwm.classList.remove("active");
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
     });
 });

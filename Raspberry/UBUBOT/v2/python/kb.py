@@ -21,6 +21,7 @@ def main(speed):
     print("Press enter or 'p' to exit")
     print("Direction = STOP")
     key = getChar()
+    relays = [True] * 4
     while not (key == '\r' or key == '\n' or key == 'p'):
         if key == 'w':
             ububot.motors.run(MotorIdentifier.BOTH, speed)
@@ -46,6 +47,22 @@ def main(speed):
         elif key == 'e':
             ububot.motors.move_by(MotorIdentifier.RIGHT, speed=speed, angle=-360)
             direction = "Reverse Right"
+        elif key == '1':
+            relays[0] = not relays[0]
+            ububot.relays.get_motor_1().set_state(relays[0])
+            direction = "Relay 1"
+        elif key == '2':
+            relays[1] = not relays[1]
+            ububot.relays.get_motor_2().set_state(relays[1])
+            direction = "Relay 2"
+        elif key == '3':
+            relays[2] = not relays[2]
+            ububot.relays.get_light().set_state(relays[2])
+            direction = "Relay 3"
+        elif key == '4':
+            relays[3] = not relays[3]
+            ububot.relays.get_buzzer().set_state(relays[3])
+            direction = "Relay 4"
         else:
             ububot.motors.stop()
             direction = "STOP"
@@ -60,6 +77,5 @@ if __name__ == '__main__':
     parser.add_argument('-sio', '--socket', dest='socket', action='store_const', const=True, default=False)
     args = parser.parse_args()
 
-    with UBUBOT(motors=True, serial_socket_capture=args.socket, motors_socket=args.socket) as ububot:
-        ububot = UBUBOT(motors=True, serial_socket_capture=args.socket, motors_socket=args.socket)
+    with UBUBOT(motors=True, relays=True, serial_socket_capture=args.socket, motors_socket=args.socket, status_socket=args.socket, sensors=args.socket) as ububot:
         main(args.speed)
