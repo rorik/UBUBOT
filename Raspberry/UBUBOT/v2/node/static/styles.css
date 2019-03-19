@@ -12,6 +12,15 @@ div.stream>img {
 
 div.control.container-fluid {
     height: 10%;
+    padding: 0;
+}
+
+div.control>div.status-container {
+    margin-right: 15px;
+}
+
+div.control>div.pwm-container {
+    margin-left: 15px;
 }
 
 div.diagram.container-fluid {
@@ -29,7 +38,7 @@ div.options.container-fluid {
 
 div.options>div {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 
 div.diagram>div>div.progress {
@@ -158,4 +167,22 @@ div.activable {
     font-size: 1.6rem;
     line-height: 1.6rem;
     min-width: 4rem;
+}
+
+.status-container .progress {
+    background-color: #222;
+    border-radius: 0; 
+    position: relative;
+}
+
+.status-container .progress .progress-label {
+    width: 100%;
+    color: white;
+    position: absolute;
+    top: 30%;
+    text-align: center;
+}
+
+.status-container .progress .progress-label.value {
+    top: 60%;
 }

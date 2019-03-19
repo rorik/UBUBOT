@@ -20,7 +20,18 @@
                 <img id="stream-img" class="v-centered h-centered" src="/disconnected.png" />
             </div>
             <div class="control container-fluid row no-gutters">
-                <div class="col-4"></div>
+                <div class="col-4 status-container">
+                    <div class="progress h-50">
+                        <div id="status-temp-bar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="80"></div>
+                        <div class="progress-label"><span>Temperature</span></div>
+                        <div class="progress-label value"><span id="status-temp-value">0°C</span></div>
+                    </div>
+                    <div class="progress h-50">
+                        <div id="status-cpu-bar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-label"><span>CPU</span></div>
+                        <div class="progress-label value"><span id="status-cpu-value">0%</span></div>
+                    </div>
+                </div>
                 <div class="col-4 row">
                     <div id="relay1" class="relay col-3 activable"><i class="fas fa-cogs v-centered"></i></div>
                     <div id="relay2" class="relay col-3 activable"><i class="fas fa-cogs v-centered"></i></div>

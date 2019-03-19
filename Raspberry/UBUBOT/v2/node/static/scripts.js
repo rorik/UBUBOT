@@ -120,4 +120,19 @@ $(function() {
         var img = JSON.parse(img_json);
         setImage('data:image/jpg;charset=utf-8;base64, ' + img.src);
     });
+    socket.on("ububot-status", data => {
+        var value;
+        if ('cpu' in data && data.cpu >= 0) {
+            value = Math.round(data.cpu);
+            document.getElementById("status-cpu-bar").style.width = value + "%";
+            document.getElementById("status-cpu-bar").attributes.getNamedItem("aria-valuenow").value = value;
+            document.getElementById("status-cpu-value").innerText = value + '%';
+        }
+        if ('temp' in data && data.temp >= 0) {
+            value = Math.round(data.temp/0.80);
+            document.getElementById("status-temp-bar").style.width = value + "%";
+            document.getElementById("status-temp-bar").attributes.getNamedItem("aria-valuenow").value = value;
+            document.getElementById("status-temp-value").innerText = Math.round(data.temp) + '°C';
+        }
+    });
 });

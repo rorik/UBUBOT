@@ -2,9 +2,10 @@ var express = require("express");
 var app = express();
 var http = require("http").Server(app);
 var io = require("socket.io")(http);
+const si = require('systeminformation');
 
-app.use('/lib', express.static('libjs'))
-app.use(express.static('static'))
+app.use('/lib', express.static('libjs'));
+app.use(express.static('static'));
 
 io.on("connection", socket => {
     var ip = socket.handshake.address;
@@ -31,6 +32,17 @@ io.on("connection", socket => {
         console.log("Image");
     });
 });
+
+async function broadcastStatus() {
+    try {
+        const temp = await si.cpuTemperature();
+        const cpu = await si.currentLoad();
+        io.sockets.emit('ububot-status', {cpu: cpu.currentload, temp: temp.main});
+    } catch (e) {
+        console.error(e);
+    }
+}
+setInterval(broadcastStatus, 500);
 
 http.listen(80, function() {
     console.log("listening on *:80");
