@@ -51,6 +51,7 @@ div.activable.active {
 
 div.activable {
     background-color: #222;
+    color: white;
 }
 
 .sensor.vertical {
@@ -142,34 +143,19 @@ div.activable {
     margin-right: auto;
 }
 
-.pwm-pins-group {
-    display: inline-block;
+.pwm-container>div {
+    width: 100%;
+    height: 25%;
 }
-.pwm-container {
-    display: flex;
-    justify-content: space-evenly;
-    white-space: nowrap;
-}
-.pwm-module {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-}
-
 .pwm-pin {
-    width: 2rem;
-    height: 1rem;
-    line-height: 1rem;
     text-align: center;
-    display: inline-block;
-    color: white;
 }
 
 .relay {
     height: 100%;
     display: inline-block;
-    color: white;
     text-align: center;
     font-size: 1.6rem;
     line-height: 1.6rem;
+    min-width: 4rem;
 }

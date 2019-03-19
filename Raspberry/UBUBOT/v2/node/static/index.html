@@ -19,43 +19,31 @@
             <div class="stream container-fluid">
                 <img id="stream-img" class="v-centered h-centered" src="/disconnected.png" />
             </div>
-            <div class="control container-fluid row">
+            <div class="control container-fluid row no-gutters">
                 <div class="col-4"></div>
                 <div class="col-4 row">
-                    <div #id="relay1" class="relay col-3 activable active"><i class="fas fa-cogs v-centered"></i></div>
-                    <div #id="relay2" class="relay col-3 activable"><i class="fas fa-cogs v-centered"></i></div>
-                    <div #id="relay3" class="relay col-3 activable"><i class="far fa-lightbulb v-centered"></i></div>
-                    <div #id="relay4" class="relay col-3 activable"><i class="fas fa-volume-up v-centered"></i></div>
+                    <div id="relay1" class="relay col-3 activable"><i class="fas fa-cogs v-centered"></i></div>
+                    <div id="relay2" class="relay col-3 activable"><i class="fas fa-cogs v-centered"></i></div>
+                    <div id="relay3" class="relay col-3 activable"><i class="far fa-lightbulb v-centered"></i></div>
+                    <div id="relay4" class="relay col-3 activable"><i class="fas fa-volume-up v-centered"></i></div>
                 </div>
-                <div class="col-4 pwm-module">
-                    <div class="pwm-container">
-                        <div class="pwm-pin-group">
-                            <div #id="pwm1" class="pwm-pin activable"><span>1</span></div>
-                            <div #id="pwm2" class="pwm-pin activable"><span>2</span></div>
-                            <div #id="pwm3" class="pwm-pin activable"><span>3</span></div>
-                            <div #id="pwm4" class="pwm-pin activable"><span>4</span></div>
-                        </div>
-                        <div class="pwm-pin-group">
-                            <div #id="pwm5" class="pwm-pin activable"><span>5</span></div>
-                            <div #id="pwm6" class="pwm-pin activable"><span>6</span></div>
-                            <div #id="pwm7" class="pwm-pin activable"><span>7</span></div>
-                            <div #id="pwm8" class="pwm-pin activable"><span>8</span></div>
-                        </div>
-                    </div>
-                    <div class="pwm-container">
-                        <div class="pwm-pin-group">
-                            <div #id="pwm9" class="pwm-pin activable"><span>9</span></div>
-                            <div #id="pwm10" class="pwm-pin activable"><span>10</span></div>
-                            <div #id="pwm11" class="pwm-pin activable"><span>11</span></div>
-                            <div #id="pwm12" class="pwm-pin activable"><span>12</span></div>
-                        </div>
-                        <div class="pwm-pin-group">
-                            <div #id="pwm13" class="pwm-pin activable"><span>13</span></div>
-                            <div #id="pwm14" class="pwm-pin activable"><span>14</span></div>
-                            <div #id="pwm15" class="pwm-pin activable"><span>15</span></div>
-                            <div #id="pwm16" class="pwm-pin activable"><span>16</span></div>
-                        </div>
-                    </div>
+                <div class="col-4 pwm-container row no-gutters h-100">
+                    <div id="pwm1" class="col-3 pwm-pin activable"><div class="v-centered"><span>1</span></div></div>
+                    <div id="pwm2" class="col-3 pwm-pin activable"><div class="v-centered"><span>2</span></div></div>
+                    <div id="pwm3" class="col-3 pwm-pin activable"><div class="v-centered"><span>3</span></div></div>
+                    <div id="pwm4" class="col-3 pwm-pin activable"><div class="v-centered"><span>4</span></div></div>
+                    <div id="pwm5" class="col-3 pwm-pin activable"><div class="v-centered"><span>5</span></div></div>
+                    <div id="pwm6" class="col-3 pwm-pin activable"><div class="v-centered"><span>6</span></div></div>
+                    <div id="pwm7" class="col-3 pwm-pin activable"><div class="v-centered"><span>7</span></div></div>
+                    <div id="pwm8" class="col-3 pwm-pin activable"><div class="v-centered"><span>8</span></div></div>
+                    <div id="pwm9" class="col-3 pwm-pin activable"><div class="v-centered"><span>9</span></div></div>
+                    <div id="pwm10" class="col-3 pwm-pin activable"><div class="v-centered"><span>10</span></div></div>
+                    <div id="pwm11" class="col-3 pwm-pin activable"><div class="v-centered"><span>11</span></div></div>
+                    <div id="pwm12" class="col-3 pwm-pin activable"><div class="v-centered"><span>12</span></div></div>
+                    <div id="pwm13" class="col-3 pwm-pin activable"><div class="v-centered"><span>13</span></div></div>
+                    <div id="pwm14" class="col-3 pwm-pin activable"><div class="v-centered"><span>14</span></div></div>
+                    <div id="pwm15" class="col-3 pwm-pin activable"><div class="v-centered"><span>15</span></div></div>
+                    <div id="pwm16" class="col-3 pwm-pin activable"><div class="v-centered"><span>16</span></div></div>
                 </div>
             </div>
         </div>
