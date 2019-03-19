@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 from enum import Enum
+from Sensor.IR import IRSensor
 
 class CardinalPosition(Enum):
     NORTH = 0
@@ -8,11 +9,27 @@ class CardinalPosition(Enum):
     WEST = 3
 
 class CardinalGroup(object):
-    def __init__(self, north=None, south=None, west=None, east=None):
-        self._north = north
-        self._south = south
-        self._west = west
-        self._east = east
+    def __init__(self, north=None, south=None, west=None, east=None, state_listener=None):
+        if north is None or isinstance(north, IRSensor):
+            self._north = north
+        else:
+            self._north = IRSensor(north, state_listener=state_listener, name=CardinalPosition.NORTH.name)
+        
+        if south is None or isinstance(south, IRSensor):
+            self._south = south
+        else:
+            self._south = IRSensor(south, state_listener=state_listener, name=CardinalPosition.SOUTH.name)
+
+        if west is None or isinstance(west, IRSensor):
+            self._west = west
+        else:
+            self._west = IRSensor(west, state_listener=state_listener, name=CardinalPosition.WEST.name)
+        
+        if east is None or isinstance(east, IRSensor):
+            self._east = south
+        else:
+            self._east = IRSensor(east, state_listener=state_listener, name=CardinalPosition.EAST.name)
+        
         for identifier in CardinalPosition:
             sensor = self.get(identifier)
             if sensor is not None:

@@ -5,8 +5,8 @@ from Comms.GPIO import GPIOObject
 
 class Relay(GPIOObject):
 
-    def __init__(self, pin, initial_state=GPIO.HIGH, state_listener=None):
-        GPIOObject.__init__(self, pin)
+    def __init__(self, pin, initial_state=GPIO.HIGH, state_listener=None, name=None):
+        GPIOObject.__init__(self, pin, name)
         GPIO.setup(self._pin, GPIO.OUT)
         self._state_listener = state_listener
         self.set_state(initial_state)

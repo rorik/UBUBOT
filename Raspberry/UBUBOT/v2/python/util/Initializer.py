@@ -19,22 +19,16 @@ class UBUBOT(object):
     _serial_captures = []
 
     def __init__(self, motors=False, sensors=False, relays=False, servos=False, serial=False, serial_capture=False, socket=False, motors_socket=False, serial_socket_capture=False, status_socket=False, all=False):
+        status_listener = None
+        if status_socket:
+            status_listener = lambda status: self.socket.send_json("ububot-status", status)
         if socket or all or motors_socket or serial_socket_capture or status_socket:
             self.socket = SocketCommunication()
         if sensors or all:
-            listener = None
-            if status_socket:
-                listener = lambda status: self.socket.send_json("ububot-status", status)
-            self.sensors = CardinalGroup(north=IRSensor(16, listener), south=IRSensor(22, listener), west=IRSensor(18, listener), east=IRSensor(12, listener))
+            self.sensors = CardinalGroup(north=16, south=22, west=18, east=12, state_listener=status_listener)
         if relays or all:
-            listener = None
-            if status_socket:
-                listener = lambda status: self.socket.send_json("ububot-status", status)
-            self.relays = FunctionalGroup(light=Relay(7, state_listener=listener), buzzer=Relay(11, state_listener=listener), motor_1=Relay(13, state_listener=listener), motor_2=Relay(15, state_listener=listener))
+            self.relays = FunctionalGroup(light=7, buzzer=13, motor_1=15, motor_2=11, state_listener=status_listener)
         if servos or all:
-            listener = None
-            if status_socket:
-                listener = lambda status: self.socket.send_json("ububot-status", status)
             servos_group = [Servo(channel, min_pwn=108, max_pwm=500, max_angle=120, state_listener=listener) for channel in range(8)]
             servos_group.extend([Servo(channel, min_pwn=200, max_pwm=2300, max_angle=360, state_listener=listener) for channel in range(8, 16)])
             self.servos = ServoGroup(servos_group)
