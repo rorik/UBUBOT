@@ -1,22 +1,23 @@
 #!/usr/bin/python3
 from Vision.Streamer import Streamer
 from Vision.CameraStream import CameraStream
-from Vision.Analysis import get_sections, draw_sections
-from Vision.Line import get_stops, get_paths, draw_paths
+from Vision.Line import get_sections, draw_sections, get_stops, get_paths, draw_paths
 
-resolution = (240, 512)
+#resolution = (320, 240)
+resolution = (640, 480)
+#resolution = (1640, 1232)
 framerate = 10
 socket_interval = 0.2
+color_threshold = 50
+precision = 5
 
 
 def process_image(image):
-    sections = get_sections(image, 5)
-    sections.pop(50)
+    sections = get_sections(image, threshold=color_threshold, precision=precision)
+    sections.pop(max(sections.keys()))
     draw_sections(image, sections)
-    stops = get_stops(sections)
-    draw_sections(image, stops, (255, 0, 0))
-    paths = get_paths(sections)
-    draw_paths(image, paths)
+    draw_paths(image, get_paths(sections))
+    draw_sections(image, get_stops(sections, 50), color=(200, 200, 200))
     streamer.set_image(image)
 
 
