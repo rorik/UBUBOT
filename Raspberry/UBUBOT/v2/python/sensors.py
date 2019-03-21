@@ -5,7 +5,7 @@ from util.Initializer import UBUBOT
 from time import sleep
 from sys import stdout
 
-def callback(pin):
+def callback(pin, state):
     for position in remaining:
         if ububot.sensors.get(position)._pin == pin:
             remaining.remove(position)

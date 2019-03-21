@@ -13,7 +13,7 @@ if __name__ == '__main__':
     with UBUBOT(motors=True, sensors=True) as ububot:
         for i in range(parser.parse_args().N * 4):
             ububot.motors.run(MotorIdentifier.BOTH, speed=100)
-            ububot.sensors.get_north().wait(SensorEvent.DETECT_START, timeout=1000)
+            ububot.sensors.get_north().wait(SensorEvent.DETECT_START, timeout=1)
             ububot.motors.advance_cm(-5, speed=50)
             sleep(1)
             ububot.motors.turn_sharp(MotorPairDirection.SHARP_RIGHT, speed=100, angle=90)
