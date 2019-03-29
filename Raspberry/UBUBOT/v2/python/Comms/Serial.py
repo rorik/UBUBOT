@@ -7,7 +7,8 @@ from serial import Serial, PARITY_NONE, STOPBITS_ONE, EIGHTBITS
 class SerialCommunication:
     _connection = None
 
-    def __init__(self):
+    def __init__(self, redundancy=2):
+        self._redundancy = max(1, redundancy)
         if SerialCommunication._connection is None:
             SerialCommunication._connection = Serial(
                     port='/dev/serial0',
@@ -24,11 +25,13 @@ class SerialCommunication:
         if checksum:
             data += "$" + str(sum([ord(char) for char in message])%10)
         data += "}}"
+        data = data.encode('ascii')
 
         if preview:
             print(data)
         
-        SerialCommunication._connection.write(data.encode('ascii'))
+        for _ in range(self._redundancy):
+            SerialCommunication._connection.write(data)
 
     def read_line(self):
         return SerialCommunication._connection.read_until()
