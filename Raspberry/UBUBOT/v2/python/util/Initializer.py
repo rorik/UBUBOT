@@ -29,8 +29,8 @@ class UBUBOT(object):
         if relays or all:
             self.relays = FunctionalGroup(light=7, buzzer=13, motor_1=15, motor_2=11, state_listener=status_listener)
         if servos or all:
-            servos_group = [Servo(channel, min_pwn=108, max_pwm=500, max_angle=120, state_listener=listener) for channel in range(8)]
-            servos_group.extend([Servo(channel, min_pwn=200, max_pwm=2300, max_angle=360, state_listener=listener) for channel in range(8, 16)])
+            servos_group = [Servo(channel, min_pwn=108, max_pwm=500, max_angle=120, state_listener=status_listener) for channel in range(8)]
+            servos_group.extend([Servo(channel, min_pwn=200, max_pwm=2300, max_angle=360, state_listener=status_listener) for channel in range(8, 16)])
             self.servos = ServoGroup(servos_group)
         if serial or all or serial_capture or serial_socket_capture:
             self.serial = SerialCommunication()
