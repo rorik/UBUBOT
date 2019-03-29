@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-from util.Initializer import UBUBOT
-from Comms.Serial import SerialCommunication, SerialCapture
-from Comms.Socket import SocketCommunication
+from ububot.Initializer import UBUBOT
+from ububot.Comms.Serial import SerialCommunication, SerialCapture
+from ububot.Comms.Socket import SocketCommunication
 import argparse
 import time
 

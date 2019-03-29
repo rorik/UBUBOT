@@ -1,12 +1,12 @@
 #!/usr/bin/python3
-from Motor.MotorPair import MotorPair, MotorPairDirection, MotorIdentifier
-from Motor.Servo import Servo, ServoGroup
-from Sensor.IR import IRSensor
-from Sensor.SensorGroup import CardinalGroup
-from Relay.Relay import Relay
-from Relay.RelayGroup import FunctionalGroup
-from Comms.Socket import SocketCommunication
-from Comms.Serial import SerialCommunication, SerialCapture
+from ububot.Motor.MotorPair import MotorPair, MotorPairDirection, MotorIdentifier
+from ububot.Motor.Servo import Servo, ServoGroup
+from ububot.Sensor.IR import IRSensor
+from ububot.Sensor.SensorGroup import CardinalGroup
+from ububot.Relay.Relay import Relay
+from ububot.Relay.RelayGroup import FunctionalGroup
+from ububot.Comms.Socket import SocketCommunication
+from ububot.Comms.Serial import SerialCommunication, SerialCapture
 
 class UBUBOT(object):
     motors = None

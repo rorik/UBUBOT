@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-from Vision.Analysis import draw_lines
+from ububot.Vision.Analysis import draw_lines
 from itertools import chain
 import cv2
 

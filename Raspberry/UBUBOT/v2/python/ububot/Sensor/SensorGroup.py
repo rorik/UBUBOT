@@ -1,6 +1,6 @@
 #!/usr/bin/python3
+from ububot.Sensor.IR import IRSensor
 from enum import Enum
-from Sensor.IR import IRSensor
 
 class CardinalPosition(Enum):
     NORTH = 0

@@ -1,8 +1,8 @@
 #!/usr/bin/python3
-from Comms.Socket import SocketCommunication
+from ububot.Comms.Socket import SocketCommunication
+from threading import Thread, Timer
 from cv2 import imencode
 import base64
-from threading import Thread, Timer
 
 class Streamer(Thread):
     def __init__(self, interval=1.0):

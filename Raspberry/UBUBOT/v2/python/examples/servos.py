@@ -1,8 +1,8 @@
 #!/usr/bin/python3
-from time import sleep
-from Motor.Servo import Servo, ChannelOutOfBoundsError
+from ububot.Motor.Servo import Servo, ChannelOutOfBoundsError
+from ububot.Initializer import UBUBOT
 from argparse import ArgumentParser
-from util.Initializer import UBUBOT
+from time import sleep
 from sys import stdout
 
 if __name__ == '__main__':

@@ -1,6 +1,6 @@
 #!/usr/bin/python3
+from ububot.Relay.Relay import Relay
 from enum import Enum
-from Relay.Relay import Relay
 import RPi.GPIO as GPIO
 
 

@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-from Comms.Serial import SerialCommunication
+from ububot.Comms.Serial import SerialCommunication
 from enum import Enum
 from time import sleep
 
@@ -43,7 +43,7 @@ class MotorPair(object):
         if not isinstance(identifier, MotorIdentifier):
             raise InvalidIdentifierError(
                 "Identifier must be of type MotorIdentifier")
-        self._com.send("MOVB;{};{};{}".format(identifier.value, speed, angle))
+        self._com.send("MOVB;{};{};{}".format(identifier.value, round(speed, 2), round(angle, 2)))
         if self._result_listener is not None:
             self._result_listener({"name": "move_by", "identifier": identifier.value, "speed": speed, "angle": angle})
 
@@ -76,9 +76,9 @@ class MotorPair(object):
 
     def advance_cm(self, distance, speed=200, circumference=20.1):
         if distance > 0:
-            self.move_by(MotorIdentifier.BOTH, speed, distance/circumference)
+            self.move_by(MotorIdentifier.BOTH, speed, distance/circumference*360)
         elif distance < 0:
-            self.move_by(MotorIdentifier.BOTH, -speed, -distance/circumference)
+            self.move_by(MotorIdentifier.BOTH, -speed, -distance/circumference*360)
         else:
             self.stop()
 

@@ -1,6 +1,6 @@
 #!/usr/bin/python3
+from ububot.Comms.GPIO import GPIOObject
 import RPi.GPIO as GPIO
-from Comms.GPIO import GPIOObject
 
 
 class Relay(GPIOObject):

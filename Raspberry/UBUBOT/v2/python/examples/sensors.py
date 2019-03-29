@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-from Sensor.IR import SensorEvent
-from Sensor.SensorGroup import CardinalPosition
-from util.Initializer import UBUBOT
+from ububot.Sensor.IR import SensorEvent
+from ububot.Sensor.SensorGroup import CardinalPosition
+from ububot.Initializer import UBUBOT
 from time import sleep
 from sys import stdout
 

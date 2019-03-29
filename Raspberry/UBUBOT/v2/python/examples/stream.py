@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-from Vision.Streamer import Streamer
-from Vision.CameraStream import CameraStream
-from Vision.Line import get_sections, draw_sections, get_stops, get_paths, draw_paths
+from ububot.Vision.Streamer import Streamer
+from ububot.Vision.CameraStream import CameraStream
+from ububot.Vision.Line import get_sections, draw_sections, get_stops, get_paths, draw_paths
 
 #resolution = (320, 240)
 resolution = (640, 480)

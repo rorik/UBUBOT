@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-from Motor.MotorPair import MotorIdentifier, MotorPairDirection
-from Sensor.IR import SensorEvent
-from util.Initializer import UBUBOT
+from ububot.Motor.MotorPair import MotorIdentifier, MotorPairDirection
+from ububot.Sensor.IR import SensorEvent
+from ububot.Initializer import UBUBOT
 from argparse import ArgumentParser
 from time import sleep
 

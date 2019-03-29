@@ -1,6 +1,6 @@
 #!/usr/bin/python3
-from util.Initializer import UBUBOT
-from Motor.MotorPair import MotorIdentifier, MotorPairDirection
+from ububot.Initializer import UBUBOT
+from ububot.Motor.MotorPair import MotorIdentifier, MotorPairDirection
 from argparse import ArgumentParser
 from time import sleep
 from enum import Enum

@@ -1,6 +1,6 @@
 #!/usr/bin/python3
-from Motor.MotorPair import MotorPair, MotorPairDirection, MotorIdentifier
-from util.Initializer import UBUBOT
+from ububot.Motor.MotorPair import MotorPair, MotorPairDirection, MotorIdentifier
+from ububot.Initializer import UBUBOT
 from argparse import ArgumentParser
 from sys import stdin, stdout
 from tty import setraw

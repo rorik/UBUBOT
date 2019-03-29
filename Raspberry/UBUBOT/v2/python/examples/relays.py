@@ -1,6 +1,6 @@
 #!/usr/bin/python3
-from Relay.Relay import Relay
-from util.Initializer import UBUBOT
+from ububot.Relay.Relay import Relay
+from ububot.Initializer import UBUBOT
 from argparse import ArgumentParser
 from time import sleep
 

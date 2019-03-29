@@ -1,7 +1,7 @@
 #!/usr/bin/python3
+from ububot.Comms.GPIO import GPIOObject
 import RPi.GPIO as GPIO
 from threading import Event
-from Comms.GPIO import GPIOObject
 from enum import Enum
 
 

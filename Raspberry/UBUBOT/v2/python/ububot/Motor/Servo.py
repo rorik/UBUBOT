@@ -1,7 +1,7 @@
 #!/usr/bin/python3
+from ububot.util.PCA9685 import PWM as Driver
+from ububot.Motor.MotorPair import MotorError
 from enum import Enum
-from util.PCA9685 import PWM as Driver
-from Motor.MotorPair import MotorError
 
 class Servo(object):
     _driver = None
