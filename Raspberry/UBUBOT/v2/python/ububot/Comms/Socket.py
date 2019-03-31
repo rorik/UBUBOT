@@ -14,7 +14,8 @@ class SocketCommunication:
             atexit.register(SocketCommunication.disconnect)
 
     def send(self, label, data):
-        SocketCommunication._connection.emit(label, data)
+        if SocketCommunication._connection is not None:
+            SocketCommunication._connection.emit(label, data)
 
     def send_json(self, label, data):
         self.send(label, json.dumps(data))

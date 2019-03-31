@@ -29,7 +29,9 @@ class MotorPair(object):
         if not isinstance(identifier, MotorIdentifier):
             raise InvalidIdentifierError(
                 "Identifier must be of type MotorIdentifier")
+        speed = round(speed, 2)
         if time is not None:
+            time = round(time, 2)
             self._com.send("RNF;{};{};{}".format(
                 identifier.value, speed, time))
             if self._result_listener is not None:
@@ -43,7 +45,9 @@ class MotorPair(object):
         if not isinstance(identifier, MotorIdentifier):
             raise InvalidIdentifierError(
                 "Identifier must be of type MotorIdentifier")
-        self._com.send("MOVB;{};{};{}".format(identifier.value, round(speed, 2), round(angle, 2)))
+        speed = round(speed, 2)
+        angle = round(angle, 2)
+        self._com.send("MOVB;{};{};{}".format(identifier.value, speed, angle))
         if self._result_listener is not None:
             self._result_listener({"name": "move_by", "identifier": identifier.value, "speed": speed, "angle": angle})
 
@@ -51,11 +55,15 @@ class MotorPair(object):
         if not isinstance(identifier, MotorIdentifier):
             raise InvalidIdentifierError(
                 "Identifier must be of type MotorIdentifier")
+        speed = round(speed, 2)
+        angle = round(angle, 2)
         self._com.send("MOVT;{};{};{}".format(identifier.value, speed, angle))
         if self._result_listener is not None:
             self._result_listener({"name": "move_to", "identifier": identifier.value, "speed": speed, "angle": angle})
 
     def turn_sharp(self, direction, speed=200, angle=90):
+        speed = round(speed, 2)
+        angle = round(angle, 2)
         if direction is MotorPairDirection.SHARP_LEFT:
             self._com.send("MOVB;{};{};{}".format(
                 MotorIdentifier.LEFT.value, speed, -angle))

@@ -34,7 +34,7 @@ class IRSensor(GPIOObject):
         for event in self._events.values():
             event.clear()
 
-    def wait(self, event, timeout=2000):
+    def wait(self, event, timeout=None):
         return self._events.get(event).wait(timeout) is not None
 
     def add_callback(self, event, callback):
