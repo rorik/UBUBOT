@@ -61,6 +61,14 @@ def draw_paths(img, paths=None, color=(0, 0, 255)):
                 cv2.line(img, previous, (x, y), color, 2)
             previous = (x, y)
 
+def draw_line(img, x0, y0, x1, y1, color, relative=True):
+    if relative:
+        x0 = int(img.shape[1] * x0 / 100) 
+        x1 = int(img.shape[1] * x1 / 100)
+        y0 = int(img.shape[0] * y0 / 100) - 1
+        y1 = int(img.shape[0] * y1 / 100) - 1
+    cv2.line(img, (x0, y0), (x1, y1), color, 2)
+
 def draw_all(img, precision=10, path_color=(0, 0, 255), stop_color=(255, 255, 0)):
     sections = get_sections(img, precision)
     draw_paths(img, get_paths(sections), color=path_color)
