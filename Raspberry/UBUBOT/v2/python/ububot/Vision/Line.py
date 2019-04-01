@@ -24,7 +24,7 @@ def get_paths(sections):
         new_paths = []
         open_paths = set()
         for line in section:
-            midpoint = _midpoint(*line)
+            midpoint = midpoint(*line)
             for index_path in range(len(paths)):
                 if _is_between(midpoint, *paths[index_path][-1][1]):
                     new_paths.append(paths[index_path] + [[relative_y, line]])
@@ -56,7 +56,7 @@ def draw_paths(img, paths=None, color=(0, 0, 255)):
         previous = None
         for relative_y, line in path:
             y = int(img.shape[0] * (relative_y + 50) / 100) - 1
-            x = int(img.shape[1] * _midpoint(*line) / 100) 
+            x = int(img.shape[1] * midpoint(*line) / 100) 
             if previous is not None:
                 cv2.line(img, previous, (x, y), color, 2)
             previous = (x, y)

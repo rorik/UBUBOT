@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 from ububot.Vision.CameraStream import CameraStream
-from ububot.Vision.Line import get_stops, get_sections, get_paths, _midpoint
+from ububot.Vision.Line import get_stops, get_sections, get_paths
 from ububot.Motor.MotorPair import MotorPair, MotorIdentifier
 from threading import Thread, Timer, Event
 from picamera.array import PiRGBArray
