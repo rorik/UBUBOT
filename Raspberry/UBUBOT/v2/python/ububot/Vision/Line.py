@@ -70,11 +70,11 @@ def draw_line(img, x0, y0, x1, y1, color, relative=True):
     cv2.line(img, (x0, y0), (x1, y1), color, 2)
 
 def draw_all(img, precision=10, path_color=(0, 0, 255), stop_color=(255, 255, 0)):
-    sections = get_sections(img, precision)
+    sections = get_sections(img, precision=precision)
     draw_paths(img, get_paths(sections), color=path_color)
     draw_sections(img, sections, color=stop_color)
 
-def _midpoint(x1, x2):
+def midpoint(x1, x2):
     return (x1 + x2) / 2
 
 def _is_between(x, x1, x2):

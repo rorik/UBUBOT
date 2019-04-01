@@ -35,12 +35,12 @@ class LineFollower(Thread):
             if img is None:
                 return False
             
-            stops = get_stops(get_sections(img, self._precision))
+            stops = get_stops(get_sections(img, precision=self._precision))
             for relative_y, sections in stops.items():
                 if min_y <= relative_y <= max_y and len(sections) > 0:
                     return True
     
-    def follow(self, motors: MotorPair, speed=40, wait_for_stop=True, stop_threshold=30, min_y=-20, max_y=20, timeout=None, interrupt: Event = None, callback=None):
+    def follow(self, motors: MotorPair, speed=40, wait_for_stop=True, color_threshold=80, stop_threshold=30, min_y=-20, max_y=20, timeout=None, interrupt: Event = None, callback=None):
         start = time() if timeout is not None else None
         previous_ratio = [None, None]
         while not self._finalized.is_set() and interrupt is None or not interrupt.is_set():
@@ -60,7 +60,7 @@ class LineFollower(Thread):
                 return False
 
             # Check stops
-            sections = get_sections(img, self._precision)
+            sections = get_sections(img, threshold=color_threshold, precision=self._precision)
             stops = None
             if wait_for_stop:
                 stops = get_stops(sections.copy(), threshold=stop_threshold)
