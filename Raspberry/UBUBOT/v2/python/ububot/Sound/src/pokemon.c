@@ -77,6 +77,8 @@ int main(void)
             }
             delay(SPACING);
         };
+        digitalWrite(LEFT_CHANNEL, LOW);
+        digitalWrite(RIGHT_CHANNEL, LOW);
     }
     return 0;
 }

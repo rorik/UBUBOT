@@ -11,7 +11,6 @@ int main(void)
     softToneCreate(RIGHT_CHANNEL);
     for (int i = 20; i < 260; i++)
     {
-        printf("%d:%d\n", i * 5, i * 6);
         softToneWrite(LEFT_CHANNEL, i * 5);
         softToneWrite(RIGHT_CHANNEL, i * 6);
         delay(8);

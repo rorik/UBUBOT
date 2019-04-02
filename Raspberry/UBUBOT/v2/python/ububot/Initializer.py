@@ -25,7 +25,7 @@ class UBUBOT(object):
         if socket or all or motors_socket or serial_socket_capture or status_socket:
             self.socket = SocketCommunication()
         if sensors or all:
-            self.sensors = CardinalGroup(north=16, south=22, west=18, east=12, state_listener=status_listener)
+            self.sensors = CardinalGroup(north=23, south=22, west=18, east=24, state_listener=status_listener)
         if relays or all:
             self.relays = FunctionalGroup(light=7, buzzer=13, motor_1=15, motor_2=11, state_listener=status_listener)
         if servos or all:

@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 from ububot.Motor.MotorPair import MotorPair, MotorPairDirection, MotorIdentifier
 from ububot.Initializer import UBUBOT
+from ububot.Sound.Player import Player, Sounds
 from argparse import ArgumentParser
 from sys import stdin, stdout
 from tty import setraw
@@ -17,7 +18,7 @@ def getChar():
         tcsetattr(fd, TCSADRAIN, old_settings)
     return ch
 
-def main(speed):
+def main(ububot, speed, player):
     print("Press enter or 'p' to exit")
     print("Direction = STOP")
     key = getChar()
@@ -63,6 +64,12 @@ def main(speed):
             relays[3] = not relays[3]
             ububot.relays.get_buzzer().set_state(relays[3])
             direction = "Relay 4"
+        elif key == '5':
+            sound = player.play_random()
+            direction = "Playing " + sound.name
+        elif key == '6':
+            player.stop()
+            direction = "Stopping sound"
         else:
             ububot.motors.stop()
             direction = "STOP"
@@ -77,5 +84,5 @@ if __name__ == '__main__':
     parser.add_argument('-sio', '--socket', dest='socket', action='store_const', const=True, default=False)
     args = parser.parse_args()
 
-    with UBUBOT(motors=True, relays=True, serial_socket_capture=args.socket, motors_socket=args.socket, status_socket=args.socket, sensors=args.socket) as ububot:
-        main(args.speed)
+    with UBUBOT(motors=True, relays=True, serial_socket_capture=args.socket, motors_socket=args.socket, status_socket=args.socket, sensors=args.socket) as ububot, Player() as player:
+        main(ububot, args.speed, player)
