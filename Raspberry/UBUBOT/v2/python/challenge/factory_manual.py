@@ -6,6 +6,7 @@ from ububot.Vision.Line import draw_sections, draw_paths, draw_line, midpoint
 from ububot.Vision.Streamer import Streamer
 from ububot.Motor.MotorPair import MotorPairDirection
 from time import sleep
+from requests import get
 from sys import stdin, stdout
 from tty import setraw
 from termios import tcgetattr, tcsetattr, TCSADRAIN
@@ -32,6 +33,8 @@ stops_color = (0, 255, 255)
 paths_color = (255, 255, 0)
 vector_color = (255, 0, 0)
 
+# Remote config
+remote_endpoint = "http://10.11.12.25:5665"
 
 def follower_callback(img, sections, stops, paths, current_path, vector):
     draw_sections(img, {min_y: dotted, max_y: dotted}, dotted_color)
@@ -71,6 +74,7 @@ if __name__ == '__main__':
         print("- c : change light state")
         print("- 1 : open gate")
         print("- 2 : close gate")
+        print("- 3 : reset gate")
         print("- p : finish")
         claw = True
         key = getChar()
@@ -104,9 +108,11 @@ if __name__ == '__main__':
                 sleep(0.1)
                 ububot.relays.get_light().on()
             elif key == '1':
-                pass # TODO
+                get(remote_endpoint + "/raise")
             elif key == '2':
-                pass # TODO
+                get(remote_endpoint + "/lower")
+            elif key == '3':
+                get(remote_endpoint + "/reset")
             key = getChar()
         ububot.motors.stop()
         input('Press enter to end...')
