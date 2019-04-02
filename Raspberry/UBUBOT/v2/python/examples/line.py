@@ -32,7 +32,8 @@ def follower_callback(img, sections, stops, paths, current_path, vector):
 if __name__ == '__main__':
     with UBUBOT(motors=True, relays=True, sensors=True, serial_socket_capture=True, status_socket=True) as ububot, \
             Streamer(0.5) as streamer, \
-            LineFollower(CameraStream()) as follower:
+            CameraStream() as camera, \
+            LineFollower(camera) as follower:
         sleep(1)
         input("Press Enter to continue...")
         follower.follow(ububot.motors, stop_threshold=60, min_y=min_y,

@@ -24,9 +24,9 @@ def get_paths(sections):
         new_paths = []
         open_paths = set()
         for line in section:
-            midpoint = midpoint(*line)
+            _midpoint = midpoint(*line)
             for index_path in range(len(paths)):
-                if _is_between(midpoint, *paths[index_path][-1][1]):
+                if _is_between(_midpoint, *paths[index_path][-1][1]):
                     new_paths.append(paths[index_path] + [[relative_y, line]])
                     open_paths.add(index_path)
         for index_path in range(len(paths)):

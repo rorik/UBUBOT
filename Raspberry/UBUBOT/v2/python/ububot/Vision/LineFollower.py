@@ -3,8 +3,6 @@ from ububot.Vision.CameraStream import CameraStream
 from ububot.Vision.Line import get_stops, get_sections, get_paths
 from ububot.Motor.MotorPair import MotorPair, MotorIdentifier
 from threading import Thread, Timer, Event
-from picamera.array import PiRGBArray
-from picamera import PiCamera
 from time import time
 from math import sqrt, acos, pi
 
@@ -67,6 +65,8 @@ class LineFollower(Thread):
                 for relative_y, _sections in stops.items():
                     if min_y <= relative_y <= max_y and len(_sections) > 0:
                         motors.stop()
+                        if callback is not None:
+                            callback(img, sections, stops, None, None, None)
                         return True
             
             # Get path vector
@@ -81,9 +81,9 @@ class LineFollower(Thread):
                     # Apply speed reduction to each motor
                     ratio = [1, 1]
                     if vector[1] >= 0:
-                        ratio[1] = 1 - vector[1] / 120
+                        ratio[1] = 1 - vector[1] / 60
                     else:
-                        ratio[0] = 1 + vector[1] / 120
+                        ratio[0] = 1 + vector[1] / 60
                     
                     if ratio[0] != previous_ratio[0]:
                         previous_ratio[0] = ratio[0]

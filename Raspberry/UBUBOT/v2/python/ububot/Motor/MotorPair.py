@@ -83,12 +83,10 @@ class MotorPair(object):
                 "Direction must be SHARP_LEFT or SHARP_RIGHT. Direction =", direction)
 
     def advance_cm(self, distance, speed=200, circumference=20.1):
-        if distance > 0:
-            self.move_by(MotorIdentifier.BOTH, speed, distance/circumference*360)
-        elif distance < 0:
-            self.move_by(MotorIdentifier.BOTH, -speed, -distance/circumference*360)
-        else:
+        if distance == 0:
             self.stop()
+        else:
+            self.move_by(MotorIdentifier.BOTH, speed, distance/circumference*360)
 
 
 class MotorError(Exception):

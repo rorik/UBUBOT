@@ -59,10 +59,15 @@ class SerialCapture(SerialCommunication, Thread):
         line = ""
         while (self.running and SerialCommunication._connection and SerialCommunication._connection.is_open):
             while (SerialCommunication._connection.in_waiting > 0):
-                line += self.read_line().decode('ascii')
-                if line[-1] == '\n':
-                    self.output(line)
-                    line = ""
+                read = self.read_line()
+                try:
+                    read = read.decode('ascii')
+                    line += read
+                    if line[-1] == '\n':
+                        self.output(line)
+                        line = ""
+                except:
+                    pass
             sleep(0.05)
     
     def stop(self):
