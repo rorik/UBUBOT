@@ -12,6 +12,11 @@ class FunctionalIdentifier(Enum):
 
 
 class FunctionalGroup(object):
+    _light: Relay
+    _buzzer: Relay
+    _motor_1: Relay
+    _motor_2: Relay
+    
     def __init__(self, light=None, buzzer=None, motor_1=None, motor_2=None, state_listener=None):
         if light is None or isinstance(light, Relay):
             self._light = light

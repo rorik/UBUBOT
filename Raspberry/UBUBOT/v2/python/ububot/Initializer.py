@@ -9,13 +9,13 @@ from ububot.Comms.Socket import SocketCommunication
 from ububot.Comms.Serial import SerialCommunication, SerialCapture
 
 class UBUBOT(object):
-    motors = None
-    sensors = None
-    relays = None
-    servos = None
-    serial = None
-    socket = None
-    serial_capture = None
+    motors: MotorPair = None
+    sensors: CardinalGroup = None
+    relays: FunctionalGroup = None
+    servos: ServoGroup = None
+    serial: SerialCommunication = None
+    socket: SocketCommunication = None
+    serial_capture: SerialCapture = None
     _serial_captures = []
 
     def __init__(self, motors=False, sensors=False, relays=False, servos=False, serial=False, serial_capture=False, socket=False, motors_socket=False, serial_socket_capture=False, status_socket=False, all=False):
