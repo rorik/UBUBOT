@@ -2,9 +2,9 @@
 all: clean enable disable siren symph9 pokemon portal
 
 enable:
-	gcc -o enable.s src/enable.c -lwiringPi -D
+	gcc -o enable.s src/enable.c -lwiringPi
 disable:
-	gcc -o disable.s src/disable.c -lwiringPi -D
+	gcc -o disable.s src/disable.c -lwiringPi
 siren:
 	gcc -o siren.s src/siren.c -lwiringPi -lpthread -lm
 symph9:
