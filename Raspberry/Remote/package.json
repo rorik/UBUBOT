@@ -1,0 +1,23 @@
+{
+  "name": "cyber-boys-remote",
+  "version": "1.0.0",
+  "description": "Remote Controller for CyberBoys UBUBOT",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rorik/UBUBOT.git"
+  },
+  "author": "about@rorik.me",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rorik/UBUBOT/issues"
+  },
+  "homepage": "https://github.com/rorik/UBUBOT#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
