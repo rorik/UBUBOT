@@ -5,12 +5,15 @@ from cv2 import imencode
 import base64
 
 class Streamer(Thread):
-    def __init__(self, interval=1.0):
+    def __init__(self, interval=1.0, framerate=None):
         super(Streamer, self).__init__()
         self.socket = SocketCommunication()
         self.stop_flag = False
         self.image = None
-        self.interval = interval
+        if framerate is not None:
+            self.interval = 1 / framerate
+        else:
+            self.interval = interval
 
     def run(self):
         if not self.stop_flag:

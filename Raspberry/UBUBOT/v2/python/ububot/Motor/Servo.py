@@ -37,7 +37,7 @@ class ServoGroup(object):
     def __init__(self, servos):
         self._servos = servos.copy()
     
-    def get(self, channel):
+    def get(self, channel) -> Servo:
         for servo in self._servos:
             if servo._channel == channel:
                 return servo
