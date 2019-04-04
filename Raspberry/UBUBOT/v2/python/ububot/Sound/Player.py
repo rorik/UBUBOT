@@ -19,7 +19,9 @@ class Sounds(Enum):
     PKMN_WILD_BW = "pokemon_b_w_bw.s"
     PKMN_TRNR_RB = "pokemon_b_t_rb.s"
     PKMN_TRNR_RS = "pokemon_b_t_rs.s"
-    #PKMN_VICT_RB = "pokemon_v_rb.s"
+    WIN_XP_ON = "xp_on.s"
+    WIN_XP_OFF = "xp_off.s"
+    PKMN_VICT_RB = "pokemon_v_rb.s"
 
 
 class Player(object):
