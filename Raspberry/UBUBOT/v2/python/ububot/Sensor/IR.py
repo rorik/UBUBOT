@@ -14,7 +14,7 @@ class SensorEvent(Enum):
 class IRSensor(GPIOObject):
     def __init__(self, pin, state_listener=None, name=None):
         GPIOObject.__init__(self, pin, name)
-        GPIO.setup(self._pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        GPIO.setup(self._pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
         self._state_listener = state_listener
         self._callbacks = {SensorEvent.DETECT_ANY: set(), SensorEvent.DETECT_START: set(), SensorEvent.DETECT_END: set()}
         self._events = {SensorEvent.DETECT_ANY: Event(), SensorEvent.DETECT_START: Event(), SensorEvent.DETECT_END: Event()}

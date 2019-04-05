@@ -14,12 +14,29 @@ class LineFollower(Thread):
             raise ValueError("Expected camera stream, but got None instead")
         self._camera_stream = camera_stream
         self._finalized = Event()
+        self._queued = [Event(), None, tuple(), None]
         self.set_precision(precision)
+    
+    def run(self):
+        while not self._finalized.isSet():
+            self._queued[0].wait()
+            if self._finalized.isSet():
+                break
+            self._queued[0].clear()
+            if self._queued[1]:
+                self._follow(self._queued[3], *self._queued[2])
+            else:
+                self._wait_for_stop(*self._queued[2])
     
     def set_precision(self, precision: int):
         self._precision = precision
 
     def wait_for_stop(self, min_y=-20, max_y=20, timeout=None, interrupt: Event = None):
+        self._queued[1] = False
+        self._queued[2] = (min_y, max_y, timeout, interrupt)
+        self._queued[0].set()
+
+    def _wait_for_stop(self, min_y=-20, max_y=20, timeout=None, interrupt: Event = None):
         start = time() if timeout is not None else None
         while not self._finalized.is_set() and interrupt is None or not interrupt.is_set():
             _timeout = None
@@ -37,8 +54,13 @@ class LineFollower(Thread):
             for relative_y, sections in stops.items():
                 if min_y <= relative_y <= max_y and len(sections) > 0:
                     return True
-    
     def follow(self, motors: MotorPair, speed=40, wait_for_stop=True, color_threshold=80, stop_threshold=30, min_y=-20, max_y=20, timeout=None, interrupt: Event = None, callback=None):
+        self._queued[1] = True
+        self._queued[2] = (speed, wait_for_stop, color_threshold, stop_threshold, min_y, max_y, timeout, interrupt, callback)
+        self._queued[3] = motors
+        self._queued[0].set()
+
+    def _follow(self, motors: MotorPair, speed=40, wait_for_stop=True, color_threshold=80, stop_threshold=30, min_y=-20, max_y=20, timeout=None, interrupt: Event = None, callback=None):
         start = time() if timeout is not None else None
         previous_ratio = [None, None]
         while not self._finalized.is_set() and interrupt is None or not interrupt.is_set():
@@ -109,6 +131,7 @@ class LineFollower(Thread):
     
     def finalize(self):
         self._finalized.set()
+        self._queued[0].set()
 
     def __enter__(self):
         self.start()

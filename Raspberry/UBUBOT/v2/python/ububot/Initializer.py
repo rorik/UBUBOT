@@ -20,7 +20,7 @@ class UBUBOT(object):
 
     def __init__(self, motors=False, sensors=False, relays=False, servos=False, serial=False, serial_capture=False, socket=False, motors_socket=False, serial_socket_capture=False, status_socket=False, all=False):
         status_listener = None
-        if status_socket:
+        if status_socket or all:
             status_listener = lambda status: self.socket.send_json("ububot-status", status)
         if socket or all or motors_socket or serial_socket_capture or status_socket:
             self.socket = SocketCommunication()
@@ -38,7 +38,7 @@ class UBUBOT(object):
             self.serial_capture = SerialCapture()
             self.serial_capture.start(lambda line: self._serial_capture_callback(line))
         if motors or all or motors_socket:
-            if motors_socket:
+            if motors_socket or all:
                 self.motors = MotorPair(lambda result: self.socket.send_json("ububot-function", result))
             else:
                 self.motors = MotorPair()
