@@ -1,18 +1,33 @@
 #!/usr/bin/python3
 from ububot.Initializer import UBUBOT
 from ububot.Motor.MotorPair import MotorIdentifier, MotorPairDirection
+from ububot.Vision.Streamer import Streamer
+from ububot.Vision.CameraStream import CameraStream
+from ububot.Vision.LineFollower import LineFollower
+from ububot.Vision.Line import draw_sections, draw_paths, draw_line, midpoint, get_stops, get_sections
 from argparse import ArgumentParser
 from time import sleep
 from enum import Enum
 
+speed=30
+turn_speed=100
+advance_distance=6
+resolution=(640, 480)
+framerate=8
+precision = 5
 
-grid = [
-    #A.x  B.x  C.x  D.x  E.x  F.x  G.x, H.x
-    [100, 300, 200, 150, 400, 230, 180, 100],
-    #6.y  5.y  4.y  3.y  2.y, 1.y, A.y
-    [100, 135, 175, 215, 255, 295, 100]
-]
+# Stops config
+stop_threshold=45
+min_y = -20
+max_y = 20
+dotted = [[i, (i+10)] for i in range(0, 100, 30)]
 
+# Colors config
+dotted_color = (0, 0, 150)
+sections_color = (0, 255, 0)
+stops_color = (0, 255, 255)
+paths_color = (255, 255, 0)
+vector_color = (255, 0, 0)
 
 class Direction(Enum):
     UP = [0, 1, 0]
@@ -20,6 +35,17 @@ class Direction(Enum):
     DOWN = [0, -1, 180]
     LEFT = [-1, 0, 270]
 
+def follower_callback(img, sections, stops, paths, current_path, vector):
+    draw_sections(img, {min_y: dotted, max_y: dotted}, dotted_color)
+    draw_sections(img, sections)
+    if stops is not None:
+        draw_sections(img, stops, stops_color)
+    if paths is not None:
+        draw_paths(img, paths, paths_color)
+        if vector is not None:
+            draw_line(img, midpoint(*current_path[0][1]), current_path[0][0] + 50,
+                    midpoint(*current_path[-1][1]), current_path[-1][0] + 50, vector_color)
+    streamer.set_image(img)
 
 def turn(ububot, current, target):
     if current is not target:
@@ -28,18 +54,21 @@ def turn(ububot, current, target):
             arch = arch - 360
         elif arch <= -180:
             arch = arch + 360
-        print('TURN', arch)
-        #TODO: move
+        print("TURN", arch)
+        ububot.motors.turn_sharp(MotorPairDirection.SHARP_RIGHT, speed=turn_speed, angle=arch)
     return target
 
 
-def advance(ububot, position, direction):
+def advance(ububot: UBUBOT, position, direction, follower: LineFollower):
     index = abs(direction.value[1])
-    distance = grid[index][position[index] +
-                           int((1 + direction.value[index]) / 2)]
     position[index] += direction.value[index]
-    print('ADVANCE', distance, '=>', position)
-    #TODO: move
+    print("ADVANCE =>", position)
+    stops = get_stops(get_sections(camera.wait_for_capture(), precision=precision))
+    for relative_y, sections in stops.items():
+            if min_y <= relative_y <= max_y and len(sections) > 0:
+                ububot.motors.advance_cm(advance_distance, speed)
+                sleep(1)
+    follower._follow(ububot.motors, speed=speed, min_y=min_y, max_y=max_y, stop_threshold=stop_threshold, timeout=2, callback=follower_callback)    
 
 
 if __name__ == '__main__':
@@ -70,11 +99,14 @@ if __name__ == '__main__':
     remaining.append(end)
     position = start.copy()
 
-    with UBUBOT(motors=True) as ububot:
+    with UBUBOT(motors=True, motors_socket=True, serial_socket_capture=True, status_socket=True) as ububot, \
+            Streamer(0.5) as streamer, \
+            CameraStream(resolution=resolution, framerate=framerate) as camera, \
+            LineFollower(camera, precision=precision) as follower:
         print('== PATH ==')
         print(" => ".join([str(position) for position in [start] + remaining]))
         print('==========')
-        advance(ububot, position, direction)
+        advance(ububot, position, direction, follower)
         while len(remaining) > 0:
             for i in range(100):
                 if position[0] != remaining[0][0]:
@@ -82,13 +114,13 @@ if __name__ == '__main__':
                         direction = turn(ububot, direction, Direction.LEFT)
                     else:
                         direction = turn(ububot, direction, Direction.RIGHT)
-                    advance(ububot, position, direction)
+                    advance(ububot, position, direction, follower)
                 elif position[1] != remaining[0][1]:
                     if position[1] < remaining[0][1]:
                         direction = turn(ububot, direction, Direction.UP)
                     else:
                         direction = turn(ububot, direction, Direction.DOWN)
-                    advance(ububot, position, direction)
+                    advance(ububot, position, direction, follower)
                 else:
                     print('REACHED TARGET', remaining[0])
                     remaining.pop(0)
