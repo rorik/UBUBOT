@@ -2,11 +2,12 @@
 from ububot.Initializer import UBUBOT
 from ububot.Vision.CameraStream import CameraStream
 from ububot.Vision.LineFollower import LineFollower
-from ububot.Vision.Line import draw_sections, draw_paths, draw_line, midpoint
+from ububot.Vision.Line import draw_sections, draw_paths, draw_line, midpoint, get_stops, get_sections
 from ububot.Vision.Streamer import Streamer
 from ububot.Motor.MotorPair import MotorPairDirection
 from time import sleep
-from requests import get
+from threading import Event
+from requests import get, exceptions
 from sys import stdin, stdout
 from tty import setraw
 from termios import tcgetattr, tcsetattr, TCSADRAIN
@@ -22,8 +23,8 @@ precision = 5
 
 # Stops config
 stop_threshold=45
-min_y = -20
-max_y = 20
+min_y = -30
+max_y = 10
 dotted = [[i, (i+10)] for i in range(0, 100, 30)]
 
 # Colors config
@@ -71,17 +72,25 @@ if __name__ == '__main__':
         print("- e : sharp right")
         print("- s : reverse 2cm")
         print("- x : toggle claw")
+        print("- i/j/k/l : manual movement")
         print("- c : change light state")
         print("- 1 : open gate")
         print("- 2 : close gate")
         print("- 3 : reset gate")
-        print("- p : finish")
+        print("- p/enter : finish")
+        print("- other : stop motors / stop follower")
+        interrupt = Event()
         claw = True
         key = getChar()
         while not (key == '\r' or key == '\n' or key == 'p'):
             if key == 'w':
-                response = follower.follow(ububot.motors, speed=speed, stop_threshold=stop_threshold, min_y=min_y, max_y=max_y, timeout=20, callback=follower_callback)
-                print(response)
+                interrupt.clear()
+                stops = get_stops(get_sections(camera.wait_for_capture(), precision=precision))
+                for relative_y, sections in stops.items():
+                    if min_y <= relative_y <= max_y and len(sections) > 0:
+                        ububot.motors.advance_cm(16, turn_speed)
+                        sleep(1)
+                follower.follow(ububot.motors, speed=speed, stop_threshold=stop_threshold, min_y=min_y, max_y=max_y, timeout=20, callback=follower_callback, interrupt=interrupt)
             elif key == 's':
                 ububot.motors.advance_cm(-2, speed)
             elif key == 'a':
@@ -103,16 +112,36 @@ if __name__ == '__main__':
             elif key == 'x':
                 ububot.servos.get(claw_channel).angle(0 if claw else 120)
                 claw = not claw
+            elif key == 'i':
+                ububot.motors.advance_cm(5, speed)
+            elif key == 'k':
+                ububot.motors.advance_cm(-5, speed)
+            elif key == 'j':
+                ububot.motors.turn_sharp(MotorPairDirection.SHARP_LEFT, turn_speed, 30)
+            elif key == 'l':
+                ububot.motors.turn_sharp(MotorPairDirection.SHARP_RIGHT, turn_speed, 30)
             elif key == 'c':
                 ububot.relays.get_light().off()
                 sleep(0.1)
                 ububot.relays.get_light().on()
             elif key == '1':
-                get(remote_endpoint + "/raise")
+                try:
+                    get(remote_endpoint + "/raise")
+                except exceptions.ConnectionError:
+                    print("Failed to connect to remote device")
             elif key == '2':
-                get(remote_endpoint + "/lower")
+                try:
+                    get(remote_endpoint + "/lower")
+                except exceptions.ConnectionError:
+                    print("Failed to connect to remote device")
             elif key == '3':
-                get(remote_endpoint + "/reset")
+                try:
+                    get(remote_endpoint + "/reset")
+                except exceptions.ConnectionError:
+                    print("Failed to connect to remote device")
+            else:
+                interrupt.set()
+                ububot.motors.stop()
             key = getChar()
         ububot.motors.stop()
         input('Press enter to end...')
