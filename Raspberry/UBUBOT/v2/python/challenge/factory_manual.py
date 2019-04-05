@@ -16,7 +16,7 @@ from termios import tcgetattr, tcsetattr, TCSADRAIN
 speed = 20
 turn_speed = 100
 turn_factor = 2.3
-claw_channel = 7
+claw_channel = 8
 resolution=(640, 480)
 framerate=8
 precision = 5

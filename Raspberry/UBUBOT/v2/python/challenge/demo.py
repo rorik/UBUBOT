@@ -11,8 +11,8 @@ from time import sleep
 resolution=(640, 480)
 framerate=12
 socket_framerate=10
-claw_channel=7
-plow_channel=6
+claw_channel=8
+plow_channel=7
 
 def change_light(ububot):
     ububot.relays.get_light().off()
@@ -21,16 +21,19 @@ def change_light(ububot):
 
 
 if __name__ == '__main__':
-    with UBUBOT(all=True) as ububot, CameraStream(resolution=resolution, framerate=framerate) as camera, Streamer(framerate=socket_framerate) as streamer, Player() as player:
+    with UBUBOT(all=True) as ububot, Player() as player:
+        #CameraStream(resolution=resolution, framerate=framerate) as camera, \
+        #Streamer(framerate=socket_framerate) as streamer, Player() as player:
         input("Press Enter to continue...")
         ububot.relays.get_buzzer().off()
         sleep(1)
-        camera.add_callback(streamer.set_image)
+        #camera.add_callback(streamer.set_image)
         player.play(Sounds.WIN_XP_ON)
-        sleep(1)
+        ububot.servos.get(plow_channel).angle(50)
+        sleep(2)
+        ububot.relays.get_buzzer().on()
         ububot.motors.advance_cm(40, speed=100)
         sleep(3)
-        ububot.relays.get_buzzer().on()
         ububot.motors.turn_sharp(MotorPairDirection.SHARP_LEFT, speed=200, angle=180*4)
         sleep(2)
         ububot.motors.advance_cm(60, speed=100)
@@ -49,7 +52,7 @@ if __name__ == '__main__':
         sleep(4)
         ububot.servos.get(plow_channel).angle(70)
         sleep(1)
-        ububot.servos.get(plow_channel).angle(0)
+        ububot.servos.get(plow_channel).angle(50)
         ububot.servos.get(claw_channel).angle(0)
         sleep(1)
         change_light(ububot)
@@ -65,18 +68,19 @@ if __name__ == '__main__':
         ububot.servos.get(plow_channel).angle(90)
         ububot.servos.get(claw_channel).angle(90)
         sleep(0.5)
-        ububot.servos.get(plow_channel).angle(0)
+        ububot.servos.get(plow_channel).angle(50)
         ububot.servos.get(claw_channel).angle(0)
         sleep(0.5)
         ububot.servos.get(plow_channel).angle(90)
         ububot.servos.get(claw_channel).angle(90)
         sleep(0.5)
-        ububot.servos.get(plow_channel).angle(0)
+        ububot.servos.get(plow_channel).angle(50)
         ububot.servos.get(claw_channel).angle(0)
         sleep(1)
         change_light(ububot)
         sleep(0.1)
         change_light(ububot)
+        sleep(4)
         player.play(Sounds.WIN_XP_OFF)
         sleep(2)
         ububot.relays.get_buzzer().on()
