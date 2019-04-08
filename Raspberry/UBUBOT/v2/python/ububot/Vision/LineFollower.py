@@ -103,9 +103,9 @@ class LineFollower(Thread):
                     # Apply speed reduction to each motor
                     ratio = [1, 1]
                     if vector[1] >= 0:
-                        ratio[1] = 1 - vector[1] / 60
+                        ratio[1] = 1 - vector[1] / 90
                     else:
-                        ratio[0] = 1 + vector[1] / 60
+                        ratio[0] = 1 + vector[1] / 90
                     
                     if ratio[0] != previous_ratio[0]:
                         previous_ratio[0] = ratio[0]
