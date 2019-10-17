@@ -6,7 +6,7 @@ iso8601==0.1.12
 numpy==1.16.2
 picamera==1.13
 pyserial==3.4
-python-engineio==3.5.0
+python-engineio==3.9.0
 python-socketio==4.0.0
 PyYAML==5.1
 requests==2.21.0
